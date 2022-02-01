@@ -28,8 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     // ====== KEVIN AND ELIAS STUFF ============================================
 
-    // FIXME: Delete method -- only for testing purposes
-    public void testCoursesActivity(View view) {
+    public void test(View view) {
         Intent intent = new Intent(this, CoursesActivity.class);
         startActivity(intent);
     }
