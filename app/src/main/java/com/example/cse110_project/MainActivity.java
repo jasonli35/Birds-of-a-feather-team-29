@@ -21,4 +21,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, EnterNameActivity.class);
         startActivity(intent);
     }
+
+
+    public void goToCoursesActivityPage(View view) {
+        Intent intent = new Intent(this, CoursesActivity.class);
+        startActivity(intent);
+    }
 }

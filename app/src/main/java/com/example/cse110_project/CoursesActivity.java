@@ -8,7 +8,10 @@
 package com.example.cse110_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -39,5 +42,10 @@ public class CoursesActivity extends AppCompatActivity {
                 R.array.academic_quarters, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         quarterDropdown.setAdapter(adapter);
+    }
+
+    public void goToCoursesActivityAdd(View view) {
+        Intent intent = new Intent(this, CoursesActivityAdd.class);
+        startActivity(intent);
     }
 }
