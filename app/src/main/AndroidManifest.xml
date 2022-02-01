@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSE110Project">
         <activity
+            android:name=".CoursesActivityAdd"
+            android:exported="false" />
+        <activity
             android:name=".EnterNameActivity"
             android:exported="false" />
         <activity
@@ -22,4 +25,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
