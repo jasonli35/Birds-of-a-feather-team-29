@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSE110Project">
         <activity
-            android:name=".CoursesActivity"
+            android:name=".EnterNameActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -22,5 +22,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
