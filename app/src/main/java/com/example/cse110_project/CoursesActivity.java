@@ -10,5 +10,9 @@ public class CoursesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
+
+        setTitle("Birds of a Feather");
     }
+
+
 }

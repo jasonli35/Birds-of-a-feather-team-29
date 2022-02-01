@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CSE110-Project</string>
+    <string name="enter_previous_courses">Enter Previous Courses</string>
+    <string name="subject">Subject</string>
+    <string name="course_number">Course Number</string>
+    <string name="done">Done</string>
+    <string name="enter">Enter</string>
 </resources>
