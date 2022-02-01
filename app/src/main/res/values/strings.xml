@@ -5,8 +5,10 @@
     <string name="course_number">Course Number</string>
     <string name="done">Done</string>
     <string name="enter">Enter</string>
+    <string name="list_of_inputted_courses">List of Inputted Courses</string>
     <string name="year">Year</string>
     <string name="quarter">Quarter</string>
+    <string name="back">Back</string>
 
     <string-array name="academic_years">
         <item>2017</item>

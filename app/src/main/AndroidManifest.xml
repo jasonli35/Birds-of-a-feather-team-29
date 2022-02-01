@@ -13,6 +13,9 @@
             android:name=".CoursesActivity"
             android:exported="false" />
         <activity
+            android:name=".CoursesActivityAdd"
+            android:exported="false" />
+        <activity
             android:name=".EnterNameActivity"
             android:exported="false" />
         <activity

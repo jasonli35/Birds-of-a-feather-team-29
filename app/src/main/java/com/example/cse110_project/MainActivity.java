@@ -17,21 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
     public void testButtonClick(View view) {
         Intent intent = new Intent(this, EnterNameActivity.class);
         startActivity(intent);
     }
-
-
-    // ====== KEVIN AND ELIAS STUFF ============================================
-
-    public void test(View view) {
-        Intent intent = new Intent(this, CoursesActivity.class);
-        startActivity(intent);
-    }
-
-    // ==========================================================================
 }
