@@ -6,4 +6,15 @@
     <string name="done">Done</string>
     <string name="enter">Enter</string>
     <string name="list_of_inputted_courses">List of Inputted Courses</string>
+    <string name="year">Year</string>
+    <string name="quarter">Quarter</string>
+
+    <string-array name="academic_years">
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+    </string-array>
 </resources>
