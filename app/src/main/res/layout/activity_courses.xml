@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/year_dropdown_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CoursesActivity">
@@ -11,77 +10,124 @@
         android:id="@+id/enter_prev_courses_header_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="141dp"
         android:text="@string/enter_previous_courses"
         android:textSize="35sp"
-        tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toTopOf="@+id/quarter_dropdown_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/enter_subject_textview"
-        android:layout_width="209dp"
-        android:layout_height="39dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="19dp"
         android:ems="10"
         android:hint="@string/subject"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="86dp"
-        tools:layout_editor_absoluteY="476dp" />
+        app:layout_constraintBottom_toTopOf="@+id/enter_name_textview"
+        app:layout_constraintEnd_toEndOf="@+id/enter_button"
+        app:layout_constraintStart_toStartOf="@+id/done_button"
+        app:layout_constraintTop_toBottomOf="@+id/quarter_dropdown_container" />
 
     <EditText
         android:id="@+id/enter_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="47dp"
         android:ems="10"
         android:hint="@string/course_number"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="534dp" />
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/done_button"
+        app:layout_constraintEnd_toEndOf="@+id/enter_subject_textview"
+        app:layout_constraintTop_toBottomOf="@+id/enter_subject_textview" />
 
     <Button
         android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="57dp"
         android:text="@string/done"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="626dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/enter_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_name_textview" />
 
     <Button
         android:id="@+id/enter_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="57dp"
         android:text="@string/enter"
-        tools:layout_editor_absoluteX="228dp"
-        tools:layout_editor_absoluteY="626dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/done_button" />
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="132dp"
-        android:layout_height="64dp"
-        tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="204dp" />
+        android:id="@+id/year_dropdown_container"
+        android:layout_width="133dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toStartOf="@+id/quarter_dropdown_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/year_header_textview"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/year_header_textview"
         android:layout_width="90dp"
         android:layout_height="34dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="145dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/year"
         android:textSize="26sp"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="155dp" />
+        app:layout_constraintBottom_toTopOf="@+id/year_dropdown_container"
+        app:layout_constraintEnd_toStartOf="@+id/year_dropdown_container"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_prev_courses_header_textview" />
 
     <TextView
         android:id="@+id/quarter_header_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="79dp"
+        android:layout_marginBottom="14dp"
         android:text="@string/quarter"
         android:textSize="26sp"
-        tools:layout_editor_absoluteX="246dp"
-        tools:layout_editor_absoluteY="155dp" />
+        app:layout_constraintBottom_toTopOf="@+id/quarter_dropdown_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toEndOf="@+id/year_header_textview"
+        app:layout_constraintTop_toBottomOf="@+id/enter_prev_courses_header_textview"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/quarter_dropdown_container"
-        android:layout_width="133dp"
-        android:layout_height="63dp"
-        tools:layout_editor_absoluteX="239dp"
-        tools:layout_editor_absoluteY="204dp" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="209dp"
+        app:layout_constraintBottom_toTopOf="@+id/enter_subject_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/year_dropdown_container"
+        app:layout_constraintTop_toBottomOf="@+id/enter_prev_courses_header_textview"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
