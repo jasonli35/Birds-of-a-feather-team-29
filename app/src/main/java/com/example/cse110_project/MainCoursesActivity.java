@@ -1,9 +1,9 @@
 /*
-* Source(s):
-*
-* https://code.tutsplus.com/tutorials/how-to-add-a-dropdown-menu-in-android-studio--cms-37860
-* https://developer.android.com/guide/topics/ui/controls/spinner
-* */
+ * Source(s):
+ *
+ * https://code.tutsplus.com/tutorials/how-to-add-a-dropdown-menu-in-android-studio--cms-37860
+ * https://developer.android.com/guide/topics/ui/controls/spinner
+ * */
 
 package com.example.cse110_project;
 
@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.cse110_project.prevcourses.db.PreviousCoursesDB;
 
-public class MainPrevCoursesActivity extends AppCompatActivity {
+public class MainCoursesActivity extends AppCompatActivity {
     /** Instance variables */
     private PreviousCoursesDB prevCourses;
 
@@ -49,8 +49,8 @@ public class MainPrevCoursesActivity extends AppCompatActivity {
         quarterDropdown.setAdapter(adapter);
     }
 
-    public void goToCoursesActivityAdd(View view) {
-        Intent intent = new Intent(this, AddPrevCoursesActivity.class);
+    public void onClickEnter(View view) {
+        Intent intent = new Intent(this, AddCoursesActivity.class);
         TextView subject = findViewById(R.id.enter_subject_textview);
         TextView course = findViewById(R.id.enter_course_textview);
         intent.putExtra("subject", subject.getText().toString());

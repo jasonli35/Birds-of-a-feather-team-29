@@ -37,10 +37,20 @@
         android:layout_marginTop="37dp"
         android:layout_marginEnd="283dp"
         android:layout_marginBottom="646dp"
-        android:text="test_button"
         android:onClick="goToCoursesActivityPage"
+        android:text="test_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/home_screen_btn_testing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="home_screen"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
