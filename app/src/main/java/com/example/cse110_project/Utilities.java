@@ -19,4 +19,20 @@ public class Utilities {
         AlertDialog alertDialog = alertBuilder.create();
         alertDialog.show();
     }
+
+    public static void showWarningForTooManyEnteredCourses(Activity activity, String message) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+
+        alertBuilder
+                .setTitle("Warning!")
+                .setMessage(message)
+                .setPositiveButton("Ok", (dialog, id) -> {
+                    dialog.cancel();
+                })
+                .setCancelable(true);
+
+
+        AlertDialog alertDialog = alertBuilder.create();
+        alertDialog.show();
+    }
 }

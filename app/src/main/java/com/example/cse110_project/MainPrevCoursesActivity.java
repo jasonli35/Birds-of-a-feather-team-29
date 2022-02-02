@@ -14,10 +14,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-public class CoursesActivity extends AppCompatActivity {
+import com.example.cse110_project.prevcourses.db.PreviousCoursesDB;
 
-    // Some new comment again.
+public class MainPrevCoursesActivity extends AppCompatActivity {
+    /** Instance variables */
+    private PreviousCoursesDB prevCourses;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,11 @@ public class CoursesActivity extends AppCompatActivity {
     }
 
     public void goToCoursesActivityAdd(View view) {
-        Intent intent = new Intent(this, CoursesActivityAdd.class);
+        Intent intent = new Intent(this, AddPrevCoursesActivity.class);
+        TextView subject = findViewById(R.id.enter_subject_textview);
+        TextView course = findViewById(R.id.enter_course_textview);
+        intent.putExtra("subject", subject.getText().toString());
+        intent.putExtra("course", course.getText().toString());
         startActivity(intent);
     }
 }
