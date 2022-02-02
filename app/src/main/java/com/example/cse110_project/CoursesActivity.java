@@ -17,7 +17,7 @@ import android.widget.Spinner;
 
 public class CoursesActivity extends AppCompatActivity {
 
-    // Some new comment.
+    // Some new comment again.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
