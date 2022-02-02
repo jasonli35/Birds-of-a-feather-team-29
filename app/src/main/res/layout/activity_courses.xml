@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CoursesActivity">
+    tools:context=".MainPrevCoursesActivity">
 
     <TextView
         android:id="@+id/enter_prev_courses_header_textview"
@@ -35,7 +35,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
-        android:id="@+id/enter_name_textview"
+        android:id="@+id/enter_course_textview"
         android:layout_width="215dp"
         android:layout_height="48dp"
         android:ems="10"

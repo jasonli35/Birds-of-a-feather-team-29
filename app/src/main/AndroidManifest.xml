@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSE110Project">
         <activity
-            android:name=".CoursesActivity"
+            android:name=".MainPrevCoursesActivity"
             android:exported="false" />
         <activity
-            android:name=".CoursesActivityAdd"
+            android:name=".AddPrevCoursesActivity"
             android:exported="false" />
         <activity
             android:name=".EnterNameActivity"
