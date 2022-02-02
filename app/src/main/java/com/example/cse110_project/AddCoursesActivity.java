@@ -45,7 +45,8 @@ public class AddCoursesActivity extends AppCompatActivity {
         for (int i = 0; i < this.enteredCourses.size(); i++) {
             intent.putExtra(Integer.toString(i + 1), this.enteredCourses.get(i));
         }
-        intent.putExtra("subject", getIntent().getExtras().getString("subject"));
+        intent.putExtra(KEY_SUBJECT, getIntent().getExtras().getString(KEY_SUBJECT));
+        intent.putExtra("add", "true");
         startActivity(intent);
     }
 

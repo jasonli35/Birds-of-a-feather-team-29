@@ -10,6 +10,7 @@ package com.example.cse110_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,10 +29,27 @@ public class MainCoursesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_courses);
         setTitle("Birds of a Feather");
 
+        //if (getIntent().getExtras().getString("add").equals("true")) { addCoursesToDatabase(); }
+
         // Initializing items for each dropdown menu
         initYearDropdown();
         initQuarterDropdown();
     }
+
+    // FIXME -- WORK IN PROGRESS
+//    public void addCoursesToDatabase() {
+//        Bundle extras = getIntent().getExtras();
+//        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+//        SharedPreferences.Editor editor = preferences.edit();
+//
+//        for (int i = 1; i <= 6; i++) {
+//            if (extras.getString("subject", "default").equals("default")
+//                    || extras.getString(Integer.toString(i), "default").equals("default")) {
+//                continue;
+//            }
+//            editor.putString(extras.getString("subject"), extras.getString(Integer.toString(i)));
+//        }
+//    }
 
     public void initYearDropdown() {
         Spinner yearDropdown = findViewById(R.id.year_dropdown_container);
