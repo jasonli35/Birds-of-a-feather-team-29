@@ -23,7 +23,7 @@ public class EnterNameActivity extends AppCompatActivity {
         if(!isValidName(name)){
             System.out.println("FALSE");
             runOnUiThread(() -> {
-                Utilities.showAlert(this, "Invalid name! Valid characters: A-Z, a-z, space character");
+                Utilities.showAlert(this, "Alert!", "Invalid name! Valid characters: A-Z, a-z, space character");
             });
         }
         else {

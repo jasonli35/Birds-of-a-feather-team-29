@@ -22,7 +22,7 @@
         <item>Fall</item>
         <item>Winter</item>
         <item>Spring</item>
-        <item>Summer 1</item>
-        <item>Summer 2</item>
+        <item>Summer1</item>
+        <item>Summer2</item>
     </string-array>
 </resources>
