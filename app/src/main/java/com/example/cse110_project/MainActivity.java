@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToCoursesActivityPage(View view) {
         Intent intent = new Intent(this, MainCoursesActivity.class);
+        //intent.putExtra("poop", "poop");
         startActivity(intent);
     }
 }
