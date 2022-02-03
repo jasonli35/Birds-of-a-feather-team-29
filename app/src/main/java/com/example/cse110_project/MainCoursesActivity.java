@@ -29,6 +29,8 @@ public class MainCoursesActivity extends AppCompatActivity {
     /** Constants */
     private final String NO_SUB_OR_COURSE_NUMBER_WARNING = "Please enter a subject or course number" +
             " in the respective empty field.";
+    private final String NO_CLASSES_ENTERED_WARNING = "Please enter at least one class for selected" +
+            " year and quarter to proceed to the next page.";
 
     /** Instance variables */
     private PreviousCoursesDB prevCourses;
@@ -48,46 +50,6 @@ public class MainCoursesActivity extends AppCompatActivity {
         // Initializing items for each dropdown menu
         initYearDropdown();
         initQuarterDropdown();
-    }
-
-    public void addCoursesToDatabase() {
-        Bundle extras = getIntent().getExtras();
-        if (extras == null) { return; }
-
-        SharedPreferences currEnteredClassesSP = getSharedPreferences("currEnteredClasses", MODE_PRIVATE);
-        String key = extras.getString("keySubject");
-        HashSet<String> set = (HashSet<String>) currEnteredClassesSP.getStringSet(key, null);
-        if (set == null) { return; }
-
-        SharedPreferences mainUserClassInfo = getSharedPreferences("mainUserClassInfo", MODE_PRIVATE);
-        SharedPreferences.Editor mainEditor = mainUserClassInfo.edit();
-
-        String completeKey = currEnteredClassesSP.getString("year", null)
-                + currEnteredClassesSP.getString("quarter", null) + key;
-        mainEditor.putStringSet(completeKey, set);
-        mainEditor.apply();
-
-        SharedPreferences completeKeysSP = getSharedPreferences("allCompleteKeys", MODE_PRIVATE);
-        SharedPreferences.Editor completeKeyEditor = completeKeysSP.edit();
-        completeKeyEditor.putString(Integer.toString(keyNumber), completeKey);
-        completeKeyEditor.apply();
-        keyNumber++;
-    }
-
-    public void initYearDropdown() {
-        Spinner yearDropdown = findViewById(R.id.year_dropdown_container);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.academic_years, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        yearDropdown.setAdapter(adapter);
-    }
-
-    public void initQuarterDropdown() {
-        Spinner quarterDropdown = findViewById(R.id.quarter_dropdown_container);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.academic_quarters, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        quarterDropdown.setAdapter(adapter);
     }
 
     public void onClickEnter(View view) {
@@ -118,6 +80,52 @@ public class MainCoursesActivity extends AppCompatActivity {
     }
 
     public void onClickDone(View view) {
+        SharedPreferences mainUserClassInfoSP = getSharedPreferences("mainUserClassInfo", MODE_PRIVATE);
+        if (mainUserClassInfoSP.getAll().isEmpty()) {
+            Utilities.showAlert(this, "Alert!", NO_CLASSES_ENTERED_WARNING);
+            return;
+        }
+        Intent intent = new Intent(this, HomePageActivity.class);
+        startActivity(intent);
+    }
 
+    public void initYearDropdown() {
+        Spinner yearDropdown = findViewById(R.id.year_dropdown_container);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.academic_years, android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        yearDropdown.setAdapter(adapter);
+    }
+
+    public void initQuarterDropdown() {
+        Spinner quarterDropdown = findViewById(R.id.quarter_dropdown_container);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.academic_quarters, android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        quarterDropdown.setAdapter(adapter);
+    }
+
+    public void addCoursesToDatabase() {
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) { return; }
+
+        SharedPreferences currEnteredClassesSP = getSharedPreferences("currEnteredClasses", MODE_PRIVATE);
+        String key = extras.getString("keySubject");
+        HashSet<String> set = (HashSet<String>) currEnteredClassesSP.getStringSet(key, null);
+        if (set == null) { return; }
+
+        SharedPreferences mainUserClassInfoSP = getSharedPreferences("mainUserClassInfo", MODE_PRIVATE);
+        SharedPreferences.Editor mainEditor = mainUserClassInfoSP.edit();
+
+        String completeKey = currEnteredClassesSP.getString("year", null)
+                + currEnteredClassesSP.getString("quarter", null) + key;
+        mainEditor.putStringSet(completeKey, set);
+        mainEditor.apply();
+
+        SharedPreferences completeKeysSP = getSharedPreferences("allCompleteKeys", MODE_PRIVATE);
+        SharedPreferences.Editor completeKeyEditor = completeKeysSP.edit();
+        completeKeyEditor.putString(Integer.toString(keyNumber), completeKey);
+        completeKeyEditor.apply();
+        keyNumber++;
     }
 }
