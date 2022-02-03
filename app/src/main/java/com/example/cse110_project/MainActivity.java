@@ -13,8 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Birds of a Feather");
-
-
     }
 
     public void testButtonClick(View view) {
@@ -22,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    // FIXME delete
     public void goToCoursesActivityPage(View view) {
-        Intent intent = new Intent(this, MainPrevCoursesActivity.class);
+        Intent intent = new Intent(this, MainCoursesActivity.class);
         startActivity(intent);
     }
 }
