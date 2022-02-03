@@ -25,7 +25,7 @@
         android:layout_height="39dp"
         android:ems="10"
         android:hint="@string/subject"
-        android:inputType="text"
+        android:inputType="textCapCharacters"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"
@@ -124,31 +124,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.325"
         tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/test_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginBottom="28dp"
-        android:ems="10"
-        android:hint="test"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/year_header_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_prev_courses_header_textview" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="54dp"
-        android:layout_height="45dp"
-        android:text="test"
-        android:onClick="onClickTest"
-        tools:layout_editor_absoluteX="316dp"
-        tools:layout_editor_absoluteY="82dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
