@@ -3,6 +3,7 @@ package com.example.cse110_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class AddCoursesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses_add);
+        setContentView(R.layout.activity_add_courses);
         displayInitPrevCourse();
     }
 
@@ -36,17 +37,21 @@ public class AddCoursesActivity extends AppCompatActivity {
             displayTooManyCoursesWarning();
             return;
         }
-        displayEnteredPrevCourses(this.courseCounter);
+        displayEnteredPrevCourse(this.courseCounter);
         this.courseCounter++;
     }
 
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, MainCoursesActivity.class);
+
+        // FIXME: could be a separate method or class =====
+        SharedPreferences preferences = getSharedPreferences("userClassInfo", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
         for (int i = 0; i < this.enteredCourses.size(); i++) {
-            intent.putExtra(Integer.toString(i + 1), this.enteredCourses.get(i));
+            editor.putString(Integer.toString(i + 1), this.enteredCourses.get(i));
+            editor.apply();
         }
-        intent.putExtra(KEY_SUBJECT, getIntent().getExtras().getString(KEY_SUBJECT));
-        intent.putExtra("add", "true");
+
         startActivity(intent);
     }
 
@@ -59,7 +64,7 @@ public class AddCoursesActivity extends AppCompatActivity {
         addToList(extras.getString(VALUE_COURSE));
     }
 
-    public void displayEnteredPrevCourses(int courseIndex) {
+    public void displayEnteredPrevCourse(int courseIndex) {
         TextView[] courseLayouts = {findViewById(R.id.prev_course_two_textview),
                 findViewById(R.id.prev_course_three_textview),
                 findViewById(R.id.prev_course_four_textview),

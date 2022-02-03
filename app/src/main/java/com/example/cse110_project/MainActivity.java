@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // FIXME delete
     public void goToCoursesActivityPage(View view) {
         Intent intent = new Intent(this, MainCoursesActivity.class);
         startActivity(intent);

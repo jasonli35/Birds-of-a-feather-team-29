@@ -23,13 +23,14 @@ public class MainCoursesActivity extends AppCompatActivity {
     /** Instance variables */
     private PreviousCoursesDB prevCourses;
 
+    // FIXME delete
+    int counter = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses);
+        setContentView(R.layout.activity_main_courses);
         setTitle("Birds of a Feather");
-
-        //if (getIntent().getExtras().getString("add").equals("true")) { addCoursesToDatabase(); }
 
         // Initializing items for each dropdown menu
         initYearDropdown();
@@ -74,5 +75,14 @@ public class MainCoursesActivity extends AppCompatActivity {
         intent.putExtra("subject", subject.getText().toString());
         intent.putExtra("course", course.getText().toString());
         startActivity(intent);
+    }
+
+    // FIXME delete
+    public void onClickTest(View view) {
+        if (counter > 6) { Utilities.showAlert(this, "bruh"); counter = 1; return; }
+        SharedPreferences pref = getSharedPreferences("userClassInfo", MODE_PRIVATE);
+        TextView test = findViewById(R.id.test_textview);
+        test.setText(pref.getString(Integer.toString(counter), "not found"));
+        counter++;
     }
 }
