@@ -2,8 +2,8 @@
  * Source(s):
  *
  * How to implement a dropdown menu -
- * https://code.tutsplus.com/tutorials/how-to-add-a-dropdown-menu-in-android-studio--cms-37860
- * https://developer.android.com/guide/topics/ui/controls/spinner
+ *  https://code.tutsplus.com/tutorials/how-to-add-a-dropdown-menu-in-android-studio--cms-37860
+ *  https://developer.android.com/guide/topics/ui/controls/spinner
  * */
 
 package com.example.cse110_project;
