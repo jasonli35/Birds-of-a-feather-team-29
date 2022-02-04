@@ -42,7 +42,7 @@ public class AddCoursesActivity extends AppCompatActivity {
             return;
         // FIXME: could be a unit test of some sort testing whether or not the user entered a class
         } else if (enteredCourseNumber.getText().toString().equals("")) {
-            Utilities.showAlert(this, "Warning!", NO_COURSE_ENTERED );
+            Utilities.showAlert(this, "Warning!", NO_COURSE_ENTERED);
             return;
         }
         displayEnteredPrevCourse(this.courseCounter);
