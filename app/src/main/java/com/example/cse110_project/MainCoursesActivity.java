@@ -38,6 +38,8 @@ public class MainCoursesActivity extends AppCompatActivity {
     /** Static variables */
     static int keyNumber = 1;
 
+    // test comment
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
