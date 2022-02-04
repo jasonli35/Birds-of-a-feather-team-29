@@ -52,7 +52,6 @@ public class AddCoursesActivity extends AppCompatActivity {
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, MainCoursesActivity.class);
 
-        // FIXME potential
         SharedPreferences preferences = getSharedPreferences("currEnteredClasses", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Bundle extras = getIntent().getExtras();

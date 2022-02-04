@@ -30,16 +30,11 @@ public class MainCoursesActivity extends AppCompatActivity {
     /** Constants */
     private final String NO_SUB_OR_COURSE_NUMBER_WARNING = "Please enter a subject or course number" +
             " in the respective empty field.";
-    private final String NO_CLASSES_ENTERED_WARNING = "Please enter at least one class for selected" +
-            " a year and quarter to proceed to the next page.";
-
-    /** Instance variables */
-    private PreviousCoursesDB prevCourses;
+    private final String NO_CLASSES_ENTERED_WARNING = "Please enter at least one class for a selected" +
+            " year and quarter to proceed to the next page.";
 
     /** Static variables */
     static int keyNumber = 1;
-
-    // test comment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +42,7 @@ public class MainCoursesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_courses);
         setTitle("Birds of a Feather");
 
-        // Adding entered courses into the database for future reference
         addCoursesToDatabase();
-
-        // Initializing items for each dropdown menu
         initYearDropdown();
         initQuarterDropdown();
     }
@@ -58,6 +50,7 @@ public class MainCoursesActivity extends AppCompatActivity {
     public void onClickEnter(View view) {
         TextView subject = findViewById(R.id.enter_subject_textview);
         TextView courseNumber = findViewById(R.id.enter_course_textview);
+
         if ((subject.getText().toString().equals("")) || (courseNumber.getText().toString().equals(""))) {
             Utilities.showAlert(this, "Warning!", NO_SUB_OR_COURSE_NUMBER_WARNING);
             return;
