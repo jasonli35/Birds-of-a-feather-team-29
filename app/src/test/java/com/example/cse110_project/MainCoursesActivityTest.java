@@ -1,5 +1,7 @@
 package com.example.cse110_project;
 
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.lifecycle.Lifecycle;
@@ -31,8 +33,8 @@ public class MainCoursesActivityTest {
         ActivityScenario<MainCoursesActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
-            TextView courseNumber = activity.findViewById(R.id.enter_course_textview);
-            assert(courseNumber.getText().toString().equals(""));
+            TextView courseEntry = activity.findViewById(R.id.enter_course_textview);
+            assert(courseEntry.getText().toString().equals(""));
         });
     }
 }
