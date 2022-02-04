@@ -30,7 +30,7 @@ public class MainCoursesActivity extends AppCompatActivity {
     private final String NO_SUB_OR_COURSE_NUMBER_WARNING = "Please enter a subject or course number" +
             " in the respective empty field.";
     private final String NO_CLASSES_ENTERED_WARNING = "Please enter at least one class for selected" +
-            " year and quarter to proceed to the next page.";
+            " a year and quarter to proceed to the next page.";
 
     /** Instance variables */
     private PreviousCoursesDB prevCourses;
