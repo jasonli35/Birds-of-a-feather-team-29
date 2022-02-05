@@ -2,8 +2,14 @@
  * Source(s):
  *
  * How to implement a dropdown menu -
- *  https://code.tutsplus.com/tutorials/how-to-add-a-dropdown-menu-in-android-studio--cms-37860
- *  https://developer.android.com/guide/topics/ui/controls/spinner
+ *  1) Title: How to Add a Dropdown Menu in Android Studio
+ *     Link: https://code.tutsplus.com/tutorials/how-to-add-a-dropdown-menu-in-android-studio--cms-37860
+ *     Date: January 1st - February 2nd, 2022
+ *     Source used for...: Guidance on how to implement a dropdown menu
+ *  2) Spinners
+ *     Link: https://developer.android.com/guide/topics/ui/controls/spinner
+ *     Date: January 1st - February 2nd, 2022
+ *     Source used for...: Understanding Spinners
  * */
 
 package com.example.cse110_project;

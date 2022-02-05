@@ -2,8 +2,14 @@
  * Source(s) used:
  *
  * Automated testing on GitHub -
- *  https://stackoverflow.com/questions/17668265/gradlew-permission-denied
- *  Lab 2, page 11
+ *  1) Title: gradlew: Permission Denied
+ *     Link: https://stackoverflow.com/questions/17668265/gradlew-permission-denied
+ *     Date: 2/4/22
+ *     Source used for...: Understanding an error on GitHub actions
+ *  2) Lab 2 (page 11)
+ *     Link: https://docs.google.com/document/d/19VngfyPVahd7LdmW2fyWTNqWI67Sag_ylnP5Ja2wtBo/edit?usp=sharing
+ *     Date: 2/4/22
+ *     Source used for...: Reference on how to write a .yml file for automated testing
  * */
 
 package com.example.cse110_project;

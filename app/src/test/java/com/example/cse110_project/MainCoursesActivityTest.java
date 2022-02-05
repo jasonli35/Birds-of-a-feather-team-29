@@ -18,6 +18,11 @@ public class MainCoursesActivityTest {
     @Rule
     public ActivityScenarioRule<MainCoursesActivity> rule = new ActivityScenarioRule<>(MainCoursesActivity.class);
 
+    /**
+     * BDD Scenario Acceptance Test:
+     *
+     * Tests BDD Scenario 2 of User Story #4
+     * */
     @Test
     public void test_Subject_TextView_Is_Empty() {
         ActivityScenario<MainCoursesActivity> scenario = rule.getScenario();
@@ -28,6 +33,11 @@ public class MainCoursesActivityTest {
         });
     }
 
+    /**
+     * BDD Scenario Acceptance Test:
+     *
+     * Tests BDD Scenario 2 of User Story #4
+     * */
     @Test
     public void test_Course_Number_TextView_Is_Empty() {
         ActivityScenario<MainCoursesActivity> scenario = rule.getScenario();
