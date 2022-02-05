@@ -63,6 +63,12 @@ public class MainCoursesActivity extends AppCompatActivity {
         initQuarterDropdown();
     }
 
+    /**
+     * Proceeds the User to AddCoursesActivity page
+     *
+     * @return True if successful, otherwise false if the user has left the subject or course number
+     *         entry blank
+     * */
     public void onClickEnter(View view) {
         TextView subject = findViewById(R.id.enter_subject_textview);
         TextView courseNumber = findViewById(R.id.enter_course_textview);
@@ -73,12 +79,12 @@ public class MainCoursesActivity extends AppCompatActivity {
             return;
         }
 
-        // Clears entries from the previous page (AddCoursesActivity)
         SharedPreferences preferences = getSharedPreferencesDatabase(SHARED_PREF_CURR_ENTERED_CLASSES_DB);
         SharedPreferences.Editor editor = preferences.edit();
         Spinner s1 = findViewById(R.id.year_dropdown_container);
         Spinner s2 = findViewById(R.id.quarter_dropdown_container);
 
+        // Clears entries from the previous page (AddCoursesActivity)
         editor.clear();
         editor.putString(YEAR_KEY, s1.getSelectedItem().toString());
         editor.putString(QTR_KEY, s2.getSelectedItem().toString());
@@ -92,6 +98,12 @@ public class MainCoursesActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Proceeds the User to HomePageActivity page
+     *
+     * @return True if successful, otherwise false if no classes have been entered into the "main
+     *         user class info" database
+     * */
     public boolean onClickDone(View view) {
         SharedPreferences mainUserClassInfoSP = getSharedPreferencesDatabase(SHARED_PREF_MAIN_USER_CLASS_INFO_DB);
 
@@ -106,11 +118,20 @@ public class MainCoursesActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Adding the courses entered by the user from AddCoursesActivity.class in the form of
+     * extras into the appropriate SharedPreferences database
+     *
+     * @return True if successful, otherwise false if there are no extras to begin with or the set of
+     *         courses entered is null
+     * */
     public boolean addCoursesToDatabase() {
         Bundle extras = getExtras();
 
         if (extras == null) { return false; }
 
+        // Getting the courses entered by the user from the "current entered classes" database
+        // in the form of a set
         String subjectKey = extras.getString(SUBJECT_KEY);
         SharedPreferences currEnteredClassesSP= getSharedPreferencesDatabase(SHARED_PREF_CURR_ENTERED_CLASSES_DB);
         HashSet<String> set = (HashSet<String>) currEnteredClassesSP.getStringSet(subjectKey, null);
@@ -120,11 +141,14 @@ public class MainCoursesActivity extends AppCompatActivity {
         SharedPreferences mainUserClassInfoSP = getSharedPreferencesDatabase(SHARED_PREF_MAIN_USER_CLASS_INFO_DB);
         SharedPreferences.Editor mainEditor = mainUserClassInfoSP.edit();
 
+        // Adding the set of courses received above into a "main user class info" database as a value
+        // mapped to a key representing the year, quarter, and subject
         String completeKey = currEnteredClassesSP.getString(YEAR_KEY, null)
                 + currEnteredClassesSP.getString(QTR_KEY, null) + subjectKey;
         mainEditor.putStringSet(completeKey, set);
         mainEditor.apply();
 
+        // Saving the key mapped to by the set above into a "key" database for future reference
         SharedPreferences completeKeysSP = getSharedPreferencesDatabase(SHARED_PREF_ALL_COMPLETE_KEYS_DB);
         SharedPreferences.Editor completeKeysEditor = completeKeysSP.edit();
         completeKeysEditor.putString(Integer.toString(keyNumber), completeKey);
@@ -135,6 +159,9 @@ public class MainCoursesActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Initializes the dropdown list for year entries
+     * */
     public void initYearDropdown() {
         Spinner yearDropdown = findViewById(R.id.year_dropdown_container);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -143,6 +170,9 @@ public class MainCoursesActivity extends AppCompatActivity {
         yearDropdown.setAdapter(adapter);
     }
 
+    /**
+     * Initializes the dropdown list for quarter entries
+     * */
     public void initQuarterDropdown() {
         Spinner quarterDropdown = findViewById(R.id.quarter_dropdown_container);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -151,12 +181,21 @@ public class MainCoursesActivity extends AppCompatActivity {
         quarterDropdown.setAdapter(adapter);
     }
 
+    /**
+     * Gets a SharedPreferences database based on the given string
+     *
+     * @return a SharedPreferences object representing the database given
+     * */
     public SharedPreferences getSharedPreferencesDatabase(String database) {
         return getSharedPreferences(database, MODE_PRIVATE);
     }
 
+    /**
+     * Gets the extras from the passed Intent
+     *
+     * @return a Bundle object containing extras, if there are any
+     * */
     public Bundle getExtras() {
-        Bundle extras = getIntent().getExtras();
-        return extras;
+        return getIntent().getExtras();
     }
 }
