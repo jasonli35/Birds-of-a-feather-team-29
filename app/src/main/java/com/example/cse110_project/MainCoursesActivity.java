@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class MainCoursesActivity extends AppCompatActivity {
         setTitle("Birds of a Feather");
 
         addCoursesToDatabase();
+        disableDoneClickable();
         initYearDropdown();
         initQuarterDropdown();
     }
@@ -157,6 +159,15 @@ public class MainCoursesActivity extends AppCompatActivity {
         keyNumber++;
 
         return true;
+    }
+
+    /**
+     * Makes the Done button clickable depending on whether at least a course has been entered into
+     * the main database
+     * */
+    public void disableDoneClickable() {
+        Button doneButton = findViewById(R.id.done_button);
+        doneButton.setClickable(!getSharedPreferencesDatabase(SHARED_PREF_MAIN_USER_CLASS_INFO_DB).getAll().isEmpty());
     }
 
     /**
