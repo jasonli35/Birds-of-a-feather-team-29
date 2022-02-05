@@ -19,8 +19,10 @@ public class AddCoursesActivity extends AppCompatActivity {
     private final String NO_COURSE_ENTERED = "Please enter a course number. If finished, press Back" +
             " to continue.";
     private final String SPACE = " ";
-    private final String KEY_SUBJECT = "subject";
-    private final String VALUE_COURSE = "initCourseNumber";
+    private static final String SHARED_PREF_CURR_ENTERED_CLASSES_DB = "currEnteredClasses";
+    private static final String INIT_SUBJECT_KEY = "initSubject";
+    private static final String INIT_COURSE_NUMBER = "initCourseNumber";
+    private static final String WARNING = "Warning!";
     private final int COURSE_COUNTER_MAX = 5;
     private final int LIST_SIZE = 6;
 
@@ -42,7 +44,7 @@ public class AddCoursesActivity extends AppCompatActivity {
             return;
         // FIXME: could be a unit test of some sort testing whether or not the user entered a class
         } else if (enteredCourseNumber.getText().toString().equals("")) {
-            Utilities.showAlert(this, "Warning!", NO_COURSE_ENTERED);
+            Utilities.showAlert(this, WARNING, NO_COURSE_ENTERED);
             return;
         }
         displayEnteredPrevCourse(this.courseCounter);
@@ -52,16 +54,16 @@ public class AddCoursesActivity extends AppCompatActivity {
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, MainCoursesActivity.class);
 
-        SharedPreferences preferences = getSharedPreferences("currEnteredClasses", MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREF_CURR_ENTERED_CLASSES_DB, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         Bundle extras = getIntent().getExtras();
         HashSet<String> set = new HashSet<>();
         for (String courses : this.enteredCourses) {
             set.add(courses);
         }
-        editor.putStringSet(extras.getString(KEY_SUBJECT), set);
+        editor.putStringSet(extras.getString(INIT_SUBJECT_KEY), set);
         editor.apply();
-        intent.putExtra("keySubject", extras.getString(KEY_SUBJECT));
+        intent.putExtra("subjectKey", extras.getString(INIT_SUBJECT_KEY));
 
         startActivity(intent);
     }
@@ -69,10 +71,10 @@ public class AddCoursesActivity extends AppCompatActivity {
     public void displayInitPrevCourse() {
         TextView firstCourse = findViewById(R.id.prev_course_one_textview);
         Bundle extras = getIntent().getExtras();
-        String fullCourseName = extras.getString(KEY_SUBJECT)
-                + SPACE + extras.getString(VALUE_COURSE);
+        String fullCourseName = extras.getString(INIT_SUBJECT_KEY)
+                + SPACE + extras.getString(INIT_COURSE_NUMBER);
         firstCourse.setText(fullCourseName);
-        addToList(extras.getString(VALUE_COURSE));
+        addToList(extras.getString(INIT_COURSE_NUMBER));
     }
 
     public void displayEnteredPrevCourse(int courseIndex) {
@@ -83,7 +85,7 @@ public class AddCoursesActivity extends AppCompatActivity {
                 findViewById(R.id.prev_course_six_textview)};
         TextView courseNumber = findViewById(R.id.course_number_textview);
         Bundle extras = getIntent().getExtras();
-        String fullCourseName = extras.getString(KEY_SUBJECT) + SPACE
+        String fullCourseName = extras.getString(INIT_SUBJECT_KEY) + SPACE
                 + courseNumber.getText().toString();
         courseLayouts[courseIndex].setText(fullCourseName);
         addToList(courseNumber.getText().toString());
