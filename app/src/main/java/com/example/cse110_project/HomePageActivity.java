@@ -39,14 +39,14 @@ public class HomePageActivity extends AppCompatActivity{
         MessageListener realListener = new MessageListener() {
             @Override
             public void onFound(@NonNull Message message){
-                //Log.d(TAG, "Found message: " + new String(message.getContent()));
+                Log.d(TAG, "Found message: " + new String(message.getContent()));
                 ArrayList<String> result = compareCourses(new String(message.getContent()));
-                //Log.d(TAG, "Found message: " + result);
+                Log.d(TAG, "Found message: " + result);
             }
 
             @Override
             public void onLost(@NonNull Message message){
-                //Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
+                Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
             }
         };
 
@@ -113,13 +113,13 @@ public class HomePageActivity extends AppCompatActivity{
     @Override
     protected void onStart(){
         super.onStart();
-        //Nearby.getMessagesClient(this).subscribe(messageListener);
+        Nearby.getMessagesClient(this).subscribe(messageListener);
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        //Nearby.getMessagesClient(this).unsubscribe(messageListener);
+        Nearby.getMessagesClient(this).unsubscribe(messageListener);
     }
 
 }
