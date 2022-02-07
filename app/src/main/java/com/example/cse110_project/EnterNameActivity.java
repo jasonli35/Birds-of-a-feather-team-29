@@ -21,7 +21,7 @@ public class EnterNameActivity extends AppCompatActivity {
         TextView nameTextView = findViewById(R.id.enter_name);
         String name = nameTextView.getText().toString();
         if(!isValidName(name)){
-            System.out.println("FALSE");
+
             runOnUiThread(() -> {
                 Utilities.showAlert(this, "Alert!", "Invalid name! Valid characters: A-Z, a-z, space character");
             });
@@ -47,7 +47,7 @@ public class EnterNameActivity extends AppCompatActivity {
             else if(curr > 32 && curr < 65){
                 return false;
             }
-            else if(curr > 90 && curr <= 97){
+            else if(curr > 90 && curr < 97){
                 return false;
             }
             else if(curr > 122){
