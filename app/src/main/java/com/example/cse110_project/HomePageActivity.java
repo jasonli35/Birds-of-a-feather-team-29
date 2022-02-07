@@ -55,7 +55,7 @@ public class HomePageActivity extends AppCompatActivity{
             }
         };
 
-        this.messageListener = new FakedMessageListener(realListener, 3, MESSAGE );
+        this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
     }
 
     //compare courses student entered to the messages received
