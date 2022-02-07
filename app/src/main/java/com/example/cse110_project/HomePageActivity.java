@@ -29,18 +29,12 @@ public class HomePageActivity extends AppCompatActivity{
     private static final String MESSAGE =
             "Amy 2020FallCSE 30 12 15L 2020SpringCSE 100 101";
     private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
-    //private MessageListener messageListener;
+    private MessageListener messageListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-    }
-
-    public void onClickStart(View view) {
-        TextView topLeftButton = findViewById(R.id.start_button);
-        if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
-        else { topLeftButton.setText("Start"); }
 
         MessageListener realListener = new MessageListener() {
             @Override
@@ -55,7 +49,28 @@ public class HomePageActivity extends AppCompatActivity{
                 //Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
             }
         };
-        new FakedMessageListener(realListener,3,MESSAGE);
+
+        this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
+    }
+
+    public void onClickStart(View view) {
+        TextView topLeftButton = findViewById(R.id.start_button);
+        if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
+        else { topLeftButton.setText("Start"); }
+
+//        MessageListener realListener = new MessageListener() {
+//            @Override
+//            public void onFound(@NonNull Message message){
+//                //Log.d(TAG, "Found message: " + new String(message.getContent()));
+//                ArrayList<String> result = compareCourses(new String(message.getContent()));
+//                //Log.d(TAG, "Found message: " + result);
+//            }
+//
+//            @Override
+//            public void onLost(@NonNull Message message){
+//                //Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
+//            }
+//        };
         //this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
     }
 
