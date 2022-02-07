@@ -46,12 +46,12 @@ public class HomePageActivity extends AppCompatActivity{
             public void onFound(@NonNull Message message){
                 //Log.d(TAG, "Found message: " + new String(message.getContent()));
                 ArrayList<String> result = compareCourses(new String(message.getContent()));
-                Log.d(TAG, "Found message: " + result);
+                //Log.d(TAG, "Found message: " + result);
             }
 
             @Override
             public void onLost(@NonNull Message message){
-                Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
+                //Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
             }
         };
 
