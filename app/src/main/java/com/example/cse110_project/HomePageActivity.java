@@ -13,6 +13,7 @@ import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -28,7 +29,7 @@ public class HomePageActivity extends AppCompatActivity{
     private static final String MESSAGE =
             "Amy 2020FallCSE 30 12 15L 2020SpringCSE 100 101";
     private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
-    private MessageListener messageListener;
+    //private MessageListener messageListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,8 @@ public class HomePageActivity extends AppCompatActivity{
                 //Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
             }
         };
-
-        this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
+        new FakedMessageListener(realListener,3,MESSAGE);
+        //this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
     }
 
     //compare courses student entered to the messages received
