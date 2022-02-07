@@ -28,23 +28,6 @@ import java.util.function.BiConsumer;
 
 public class HomePageActivity extends AppCompatActivity{
 
-    public static class FakedMessageListener extends MessageListener{
-
-        private final MessageListener messageListener;
-        private final ScheduledExecutorService executor;
-
-        public FakedMessageListener(MessageListener realMessageListener, int frequency, String messageStr) {
-            this.messageListener = realMessageListener;
-            this.executor = Executors.newSingleThreadScheduledExecutor();
-
-            executor.scheduleAtFixedRate(() -> {
-                Message message = new Message(messageStr.getBytes(StandardCharsets.UTF_8));
-                this.messageListener.onFound(message);
-                this.messageListener.onLost(message);
-            }, 0, frequency, TimeUnit.SECONDS);
-        }
-    }
-
     private static final String TAG = "Project-Nearby";
     private static final String MESSAGE =
             "Amy 2020FallCSE 30 12 15L 2020SpringCSE 100 101";
