@@ -14,17 +14,37 @@ import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
-
-//import com.example.cse110_project.MainCoursesActivity;
 
 
 public class HomePageActivity extends AppCompatActivity{
+
+    public static class FakedMessageListener extends MessageListener{
+
+        private final MessageListener messageListener;
+        private final ScheduledExecutorService executor;
+
+        public FakedMessageListener(MessageListener realMessageListener, int frequency, String messageStr) {
+            this.messageListener = realMessageListener;
+            this.executor = Executors.newSingleThreadScheduledExecutor();
+
+            executor.scheduleAtFixedRate(() -> {
+                Message message = new Message(messageStr.getBytes(StandardCharsets.UTF_8));
+                this.messageListener.onFound(message);
+                this.messageListener.onLost(message);
+            }, 0, frequency, TimeUnit.SECONDS);
+        }
+    }
+
     private static final String TAG = "Project-Nearby";
     private static final String MESSAGE =
             "Amy 2020FallCSE 30 12 15L 2020SpringCSE 100 101";
@@ -35,6 +55,12 @@ public class HomePageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+    }
+
+    public void onClickStart(View view) {
+        TextView topLeftButton = findViewById(R.id.start_button);
+        if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
+        else { topLeftButton.setText("Start"); }
 
         MessageListener realListener = new MessageListener() {
             @Override
@@ -49,29 +75,7 @@ public class HomePageActivity extends AppCompatActivity{
                 Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
             }
         };
-
         this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
-    }
-
-    public void onClickStart(View view) {
-        TextView topLeftButton = findViewById(R.id.start_button);
-        if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
-        else { topLeftButton.setText("Start"); }
-
-//        MessageListener realListener = new MessageListener() {
-//            @Override
-//            public void onFound(@NonNull Message message){
-//                //Log.d(TAG, "Found message: " + new String(message.getContent()));
-//                ArrayList<String> result = compareCourses(new String(message.getContent()));
-//                //Log.d(TAG, "Found message: " + result);
-//            }
-//
-//            @Override
-//            public void onLost(@NonNull Message message){
-//                //Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
-//            }
-//        };
-        //this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
     }
 
     //compare courses student entered to the messages received
@@ -113,13 +117,13 @@ public class HomePageActivity extends AppCompatActivity{
     @Override
     protected void onStart(){
         super.onStart();
-        Nearby.getMessagesClient(this).subscribe(messageListener);
+        //Nearby.getMessagesClient(this).subscribe(messageListener);
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        Nearby.getMessagesClient(this).unsubscribe(messageListener);
+        //Nearby.getMessagesClient(this).unsubscribe(messageListener);
     }
 
 }
