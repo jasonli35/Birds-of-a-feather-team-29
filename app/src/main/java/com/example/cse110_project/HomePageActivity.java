@@ -2,6 +2,8 @@ package com.example.cse110_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,28 +11,28 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.gms.nearby.Nearby;
+import com.example.cse110_project.prevcourses.db.AppDatabase;
+import com.example.cse110_project.prevcourses.db.Student;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
 
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.function.BiConsumer;
 
 
 public class HomePageActivity extends AppCompatActivity{
-
+    private AppDatabase db;
+    private Student student;
+    protected RecyclerView studentsRecyclerView;
+    protected RecyclerView.LayoutManager studentsLayoutManager;
+    protected StudentsViewAdapter studentsViewAdapter;
+    
     private static final String TAG = "Project-Nearby";
     private static final String MESSAGE =
-            "Amy 2020FallCSE 30 12 15L 2020SpringCSE 100 101";
+            "Amy,2020FallCSE,30,12,15L,2020SpringCSE,100,101";
     private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
     private MessageListener messageListener;
 
@@ -38,6 +40,18 @@ public class HomePageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        db = AppDatabase.singleton(getApplicationContext());
+
+        List<Student> students = db.studentDao().getAll();
+
+        studentsRecyclerView = findViewById(R.id.students_view);
+
+        studentsLayoutManager = new LinearLayoutManager(this);
+        studentsRecyclerView.setLayoutManager(studentsLayoutManager);
+
+        studentsViewAdapter = new StudentsViewAdapter(students);
+        studentsRecyclerView.setAdapter(studentsViewAdapter);
     }
 
     public void onClickStart(View view) {
@@ -50,6 +64,9 @@ public class HomePageActivity extends AppCompatActivity{
             public void onFound(@NonNull Message message){
                 Log.d(TAG, "Found message: " + new String(message.getContent()));
                 ArrayList<String> result = compareCourses(new String(message.getContent()));
+                if(result != null){
+                    addStudent(result.get(0));
+                }
                 Log.d(TAG, "Found message: " + result);
             }
 
@@ -59,13 +76,26 @@ public class HomePageActivity extends AppCompatActivity{
             }
         };
         this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
+
+
+    }
+
+    //add student to both database and recycler view
+    public void addStudent(String studentName) {
+
+        Student newStudent = new Student();
+
+        newStudent.setName(studentName);
+        db.studentDao().insert(newStudent);
+
+        studentsViewAdapter.addStudent(newStudent);
     }
 
     //compare courses student entered to the messages received
     public ArrayList<String> compareCourses(String message) {
         ArrayList<String> ret = new ArrayList<>();
         SharedPreferences sp = getSharedPreferences(SHARED_PREF_MAIN_USER_CLASS_INFO_DB, MODE_PRIVATE);
-        String[] courses = message.split(" ");
+        String[] courses = message.split(",");
         Map<String, ?> data = sp.getAll();
         if(courses.length == 0 || courses.length == 1){
             return null;
