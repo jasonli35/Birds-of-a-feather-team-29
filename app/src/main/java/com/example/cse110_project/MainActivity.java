@@ -30,6 +30,7 @@ import com.google.android.gms.nearby.messages.MessageListener;
 public class MainActivity extends AppCompatActivity {
 
     // delete comment
+    // delete comment v2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
