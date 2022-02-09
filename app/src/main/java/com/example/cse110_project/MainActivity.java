@@ -51,34 +51,47 @@ public class MainActivity extends AppCompatActivity {
                 new Student("Aiko")
         };
 
-        for (int i = 0; i < studentList.length; i++) { studentList[i].setStudentId(i); }
-
-        Course[] courseList = {
-                new Course(studentList[0].getStudentId(), "CSE 11"),
-                new Course(studentList[0].getStudentId(), "CSE 12"),
-                new Course(studentList[0].getStudentId(), "CSE 21"),
-                new Course(studentList[0].getStudentId(), "CSE 100"),
-                new Course(studentList[0].getStudentId(), "CSE 140"),
-                new Course(studentList[0].getStudentId(), "CSE 105"),
-
-                new Course(studentList[1].getStudentId(), "CSE 11"),
-                new Course(studentList[1].getStudentId(), "CSE 12"),
-                new Course(studentList[1].getStudentId(), "CSE 21"),
-                new Course(studentList[1].getStudentId(), "CSE 100"),
-
-                new Course(studentList[2].getStudentId(), "CSE 191"),
-                new Course(studentList[2].getStudentId(), "CSE 142"),
-                new Course(studentList[2].getStudentId(), "CSE 112"),
-                new Course(studentList[2].getStudentId(), "CSE 167")
-        };
-
         AppDatabase db = AppDatabase.singleton(getApplicationContext());
 
         db.studentDao().delete();
         db.courseDao().delete();
 
         for (Student student : studentList) { db.studentDao().insert(student); }
+
+        List<Student> defaultStudents = db.studentDao().getAll();
+
+        Course[] courseList = {
+                new Course(defaultStudents.get(0).getStudentId(), "2017", "Fall", "CSE 11"),
+                new Course(defaultStudents.get(0).getStudentId(), "2017", "Fall","CSE 12"),
+                new Course(defaultStudents.get(0).getStudentId(), "2017", "Fall","CSE 21"),
+                new Course(defaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 100"),
+                new Course(defaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 140"),
+                new Course(defaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 105"),
+
+                new Course(defaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 11"),
+                new Course(defaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 12"),
+                new Course(defaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 21"),
+                new Course(defaultStudents.get(1).getStudentId(), "2019", "Fall", "CSE 100"),
+
+                new Course(defaultStudents.get(2).getStudentId(), "2020", "Summer Session 1","CSE 191"),
+                new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 142"),
+                new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 112"),
+                new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 167")
+        };
+
         for (Course course : courseList) { db.courseDao().insert(course); }
+
+        //FIXME
+
+        List<Student> sl = db.studentDao().getAll();
+        for (Student s : sl) {
+            List<Course> cl = db.courseDao().getForStudent(s.getStudentId());
+            System.out.println(s.getName() + " " + s.getStudentId());
+            for (Course c : cl) {
+                System.out.println(c.getYear() + " " + c.getQuarter() + " " + c.getCourse());
+            }
+        }
+        System.out.println("---------------------");
     }
 
     public void clearUserClassInfo() {

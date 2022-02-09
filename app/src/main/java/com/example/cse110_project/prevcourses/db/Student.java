@@ -8,20 +8,15 @@ import java.util.List;
 
 @Entity(tableName = "students")
 public class Student {
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "student_id")
-    public int studentId;
+    public int studentId = 0;
 
     @ColumnInfo(name = "name")
     public String name;
 
     public Student(String name) {
         this.name = name;
-    }
-
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
     }
 
     public int getStudentId() {
@@ -35,5 +30,4 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
-
 }
