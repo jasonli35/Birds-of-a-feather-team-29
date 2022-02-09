@@ -11,13 +11,17 @@ public class Student {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "student_id")
-    public int studentId = 0;
+    public int studentId;
 
     @ColumnInfo(name = "name")
     public String name;
 
     public Student(String name) {
         this.name = name;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public int getStudentId() {

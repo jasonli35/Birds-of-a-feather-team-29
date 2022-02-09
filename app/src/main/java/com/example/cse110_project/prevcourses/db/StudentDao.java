@@ -20,4 +20,7 @@ public interface StudentDao {
 
     @Insert
     void insert(Student student);
+
+    @Delete
+    void delete(Student student);
 }

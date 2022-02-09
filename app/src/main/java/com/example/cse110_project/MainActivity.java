@@ -33,31 +33,6 @@ import com.google.android.gms.nearby.messages.MessageListener;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    // FIXME -- temporary
-    private static final Student[] studentList = {
-            new Student("Steel"),
-            new Student("Sandy"),
-            new Student("Aiko"),
-    };
-
-    private static final Course[] courseList = {
-            new Course(studentList[0].getStudentId(), "CSE 11"),
-            new Course(studentList[0].getStudentId(), "CSE 12"),
-            new Course(studentList[0].getStudentId(), "CSE 21"),
-            new Course(studentList[0].getStudentId(), "CSE 100"),
-            new Course(studentList[0].getStudentId(), "CSE 140"),
-            new Course(studentList[0].getStudentId(), "CSE 105"),
-
-            new Course(studentList[1].getStudentId(), "CSE 11"),
-            new Course(studentList[1].getStudentId(), "CSE 12"),
-            new Course(studentList[1].getStudentId(), "CSE 21"),
-            new Course(studentList[1].getStudentId(), "CSE 100"),
-
-            new Course(studentList[2].getStudentId(), "CSE 191"),
-            new Course(studentList[2].getStudentId(), "CSE 142"),
-            new Course(studentList[2].getStudentId(), "CSE 112"),
-            new Course(studentList[2].getStudentId(), "CSE 167"),
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +45,33 @@ public class MainActivity extends AppCompatActivity {
 
     // FIXME: temporary -- use a separate Class instead?
     public void populateDatabase() {
+        Student[] studentList = {
+                new Student("Steel"),
+                new Student("Sandy"),
+                new Student("Aiko")
+        };
+
+        for (int i = 0; i < studentList.length; i++) { studentList[i].setStudentId(i); }
+
+        Course[] courseList = {
+                new Course(studentList[0].getStudentId(), "CSE 11"),
+                new Course(studentList[0].getStudentId(), "CSE 12"),
+                new Course(studentList[0].getStudentId(), "CSE 21"),
+                new Course(studentList[0].getStudentId(), "CSE 100"),
+                new Course(studentList[0].getStudentId(), "CSE 140"),
+                new Course(studentList[0].getStudentId(), "CSE 105"),
+
+                new Course(studentList[1].getStudentId(), "CSE 11"),
+                new Course(studentList[1].getStudentId(), "CSE 12"),
+                new Course(studentList[1].getStudentId(), "CSE 21"),
+                new Course(studentList[1].getStudentId(), "CSE 100"),
+
+                new Course(studentList[2].getStudentId(), "CSE 191"),
+                new Course(studentList[2].getStudentId(), "CSE 142"),
+                new Course(studentList[2].getStudentId(), "CSE 112"),
+                new Course(studentList[2].getStudentId(), "CSE 167")
+        };
+
         AppDatabase db = AppDatabase.singleton(getApplicationContext());
 
         db.studentDao().delete();
@@ -77,16 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
         for (Student student : studentList) { db.studentDao().insert(student); }
         for (Course course : courseList) { db.courseDao().insert(course); }
-
-        // FIXME
-        System.out.println("NUMBER OF STUDENTS: " + db.studentDao().getAll().size());
-        for (int i = 0; i < 3; i++) {
-            List<Course> course2 = db.courseDao().getForStudent(studentList[i].getStudentId());
-            System.out.println("----------------------------");
-            for (Course course : course2) {
-                System.out.println(course.getText());
-            }
-        }
     }
 
     public void clearUserClassInfo() {

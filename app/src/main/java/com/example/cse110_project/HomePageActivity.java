@@ -19,6 +19,7 @@ import com.google.android.gms.nearby.messages.MessageListener;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,20 +27,19 @@ import java.util.Set;
 
 public class HomePageActivity extends AppCompatActivity{
     private AppDatabase db;
-    private Student student;
+
     protected RecyclerView studentsRecyclerView;
     protected RecyclerView.LayoutManager studentsLayoutManager;
     protected StudentsViewAdapter studentsViewAdapter;
-    
-    private static final String TAG = "Project-Nearby";
-    private static final String MESSAGE =
-            "Amy,2020FallCSE,30,12,15L,2020SpringCSE,100,101";
+
     private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        compareCourses();
 
         db = AppDatabase.singleton(getApplicationContext());
         List<Student> students = db.studentDao().getAll();
@@ -57,56 +57,41 @@ public class HomePageActivity extends AppCompatActivity{
         TextView topLeftButton = findViewById(R.id.start_button);
         if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
         else { topLeftButton.setText("Start"); }
-
-
     }
 
-    // FIXME add class for storing courses of a user
-    public void addCoursesTest() {
-
-    }
-
-    //add student to both database and recycler view
-    public void addStudent(String studentName) {
-//        //Student newStudent = new Student();
-//
-//        newStudent.setName(studentName);
-//        db.studentDao().insert(newStudent);
-//
-//        studentsViewAdapter.addStudent(newStudent);
-    }
-
-    //compare courses student entered to the messages received
-    public ArrayList<String> compareCourses(String message) {
+    public void compareCourses() {
         ArrayList<String> ret = new ArrayList<>();
         SharedPreferences sp = getSharedPreferences(SHARED_PREF_MAIN_USER_CLASS_INFO_DB, MODE_PRIVATE);
-        String[] courses = message.split(",");
-        Map<String, ?> data = sp.getAll();
-        if(courses.length == 0 || courses.length == 1){
-            return null;
-        }
-        ret.add(courses[0]);
-        ArrayList<String> courseList = new ArrayList<>();
-        for (int i = 1; i<courses.length;i++){
-            if(courses[i].length()>5){
-                for (int j = i+1; j<courses.length;j++){
-                    courseList.add(courses[i]+courses[j]);
-                    if(courses[j].length()>5){
-                        break;
+        Map<String, ?> userCoursesMap = sp.getAll();
+        Set<String> keys = userCoursesMap.keySet();
+        Object[] keysArr = keys.toArray();
+
+
+        db = AppDatabase.singleton(getApplicationContext());
+        List<Course> courseList;
+        Set<String> userCourses;
+        Student currStudent;
+        int id;
+
+        for (int i = 0; i < keysArr.length; i++) {
+            userCourses = (Set<String>) userCoursesMap.get(keysArr[i]);
+            courseList = db.courseDao().getAll();
+
+            for (String course : userCourses) {
+                for (Course uCourse : courseList) {
+                    if (!course.equals(uCourse.getText())) {
+                        id = uCourse.getStudentId();
+                        currStudent = db.studentDao().get(id);
+
+                        db.courseDao().delete(uCourse);
+
+                        if (db.courseDao().getForStudent(id) == null
+                                || db.courseDao().getForStudent(id).size() == 0) {
+                            db.studentDao().delete(currStudent);
+                        }
                     }
                 }
             }
         }
-        for (String key : data.keySet()) {
-            Set<String> values = sp.getStringSet(key, null);
-            for (String value : values){
-                for(int k = 0; k<courseList.size(); k++){
-                    if((key+value).equals(courseList.get(k))){
-                        ret.add(key+value);
-                    }
-                }
-            }
-        }
-        return ret;
     }
 }
