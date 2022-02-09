@@ -15,9 +15,9 @@ public interface StudentDao {
     @Query("SELECT * FROM students WHERE student_id=:id")
     Student get(int id);
 
+    @Query("DELETE FROM students")
+    void delete();
+
     @Insert
     void insert(Student student);
-
-    @Delete
-    void delete(Student student);
 }

@@ -35,7 +35,6 @@ public class HomePageActivity extends AppCompatActivity{
     private static final String MESSAGE =
             "Amy,2020FallCSE,30,12,15L,2020SpringCSE,100,101";
     private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
-    private MessageListener messageListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,38 +58,22 @@ public class HomePageActivity extends AppCompatActivity{
         if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
         else { topLeftButton.setText("Start"); }
 
-        MessageListener realListener = new MessageListener() {
-            @Override
-            public void onFound(@NonNull Message message){
-                Log.d(TAG, "Found message: " + new String(message.getContent()));
-                ArrayList<String> result = compareCourses(new String(message.getContent()));
-                if(result != null){
-                    addStudent(result.get(0));
-                }
-                Log.d(TAG, "Found message: " + result);
-            }
 
-            @Override
-            public void onLost(@NonNull Message message){
-                Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
-            }
-        };
-        this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
     }
 
     // FIXME add class for storing courses of a user
     public void addCoursesTest() {
-        
+
     }
 
     //add student to both database and recycler view
     public void addStudent(String studentName) {
-        Student newStudent = new Student();
-
-        newStudent.setName(studentName);
-        db.studentDao().insert(newStudent);
-
-        studentsViewAdapter.addStudent(newStudent);
+//        //Student newStudent = new Student();
+//
+//        newStudent.setName(studentName);
+//        db.studentDao().insert(newStudent);
+//
+//        studentsViewAdapter.addStudent(newStudent);
     }
 
     //compare courses student entered to the messages received
@@ -125,17 +108,5 @@ public class HomePageActivity extends AppCompatActivity{
             }
         }
         return ret;
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        //Nearby.getMessagesClient(this).subscribe(messageListener);
-    }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-        //Nearby.getMessagesClient(this).unsubscribe(messageListener);
     }
 }

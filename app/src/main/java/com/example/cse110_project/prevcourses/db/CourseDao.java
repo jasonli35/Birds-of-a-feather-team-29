@@ -17,12 +17,19 @@ public interface CourseDao {
     @Query("SELECT * FROM courses WHERE student_id=:id")
     Course get(int id);
 
+    @Query("DELETE FROM courses")
+    void delete();
+
 //    @Query("SELECT COUNT(*) from courses")
 //    int count();
 //
-//    @Insert
-//    void insert(Course course);
-//
-//    @Delete
-//    void delete(Course course);
+    @Insert
+    void insert(Course course);
 }
+
+/**
+ * Source:
+ *
+ * For deleting database content:
+ * https://stackoverflow.com/questions/44244508/room-persistance-library-delete-all
+ * */
