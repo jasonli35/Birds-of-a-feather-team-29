@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.cse110_project.prevcourses.db.AppDatabase;
+import com.example.cse110_project.prevcourses.db.Course;
 import com.example.cse110_project.prevcourses.db.Student;
 import com.google.android.gms.nearby.messages.Message;
 import com.google.android.gms.nearby.messages.MessageListener;
@@ -78,6 +79,9 @@ public class HomePageActivity extends AppCompatActivity{
     }
 
     // FIXME add class for storing courses of a user
+    public void addCoursesTest() {
+        
+    }
 
     //add student to both database and recycler view
     public void addStudent(String studentName) {

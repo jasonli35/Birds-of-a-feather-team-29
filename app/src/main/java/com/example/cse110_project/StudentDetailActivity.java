@@ -44,8 +44,7 @@ public class StudentDetailActivity extends AppCompatActivity {
         coursesRecyclerView.setAdapter(coursesViewAdapter);
     }
 
-
     public void onGoBackClicked(View view) {
-
+        finish();
     }
 }

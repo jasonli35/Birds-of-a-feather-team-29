@@ -66,5 +66,4 @@ public class MainActivity extends AppCompatActivity {
         //intent.putExtra("poop", "poop");
         startActivity(intent);
     }
-
 }
