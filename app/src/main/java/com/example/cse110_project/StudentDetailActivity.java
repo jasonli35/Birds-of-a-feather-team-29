@@ -11,17 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import com.example.cse110_project.prevcourses.db.AppDatabase;
-import com.example.cse110_project.prevcourses.db.Course;
-import com.example.cse110_project.prevcourses.db.NewCourse;
-import com.example.cse110_project.prevcourses.db.Student;
+import com.example.cse110_project.prevcourses.db.BoFCourse;
+import com.example.cse110_project.prevcourses.db.DefaultStudent;
 
 public class StudentDetailActivity extends AppCompatActivity {
     private AppDatabase db;
-    private Student student;
+    private DefaultStudent defaultStudent;
 
     private RecyclerView coursesRecyclerView;
     private RecyclerView.LayoutManager coursesLayoutManager;
-    private NewCourseViewAdapter coursesViewAdapter;
+    private BoFCourseViewAdapter coursesViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +31,16 @@ public class StudentDetailActivity extends AppCompatActivity {
         int studentId = intent.getIntExtra("new_student_id", 0);
 
         db = AppDatabase.singleton(this);
-        student = db.studentDao().get(studentId);
-        List<NewCourse> courses = db.newCourseDao().getForStudent(studentId);
+        defaultStudent = db.studentDao().get(studentId);
+        List<BoFCourse> courses = db.newCourseDao().getForStudent(studentId);
 
-        setTitle(student.getName());
+        setTitle(defaultStudent.getName());
 
         coursesRecyclerView = findViewById(R.id.courses_view);
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
 
-        coursesViewAdapter = new NewCourseViewAdapter(courses);
+        coursesViewAdapter = new BoFCourseViewAdapter(courses);
         coursesRecyclerView.setAdapter(coursesViewAdapter);
     }
 

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 @Entity(tableName = "newStudents")
-public class NewStudent {
+public class BoFStudent {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "new_student_id")
@@ -19,7 +19,7 @@ public class NewStudent {
     @ColumnInfo(name = "name")
     public String name;
 
-    public NewStudent(int prevStudentId, String name) {
+    public BoFStudent(int prevStudentId, String name) {
         this.prevStudentId = prevStudentId;
         this.name = name;
     }

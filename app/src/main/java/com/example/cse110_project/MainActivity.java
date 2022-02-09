@@ -14,21 +14,16 @@
 
 package com.example.cse110_project;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.cse110_project.prevcourses.db.AppDatabase;
-import com.example.cse110_project.prevcourses.db.Course;
-import com.example.cse110_project.prevcourses.db.Student;
-import com.google.android.gms.nearby.Nearby;
-import com.google.android.gms.nearby.messages.Message;
-import com.google.android.gms.nearby.messages.MessageListener;
+import com.example.cse110_project.prevcourses.db.DefaultCourse;
+import com.example.cse110_project.prevcourses.db.DefaultStudent;
 
 import java.util.List;
 
@@ -45,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
 
     // FIXME: temporary -- use a separate Class instead?
     public void populateDatabase() {
-        Student[] studentList = {
-                new Student("Steel"),
-                new Student("Sandy"),
-                new Student("Aiko")
+        DefaultStudent[] defaultStudentList = {
+                new DefaultStudent("Steel"),
+                new DefaultStudent("Sandy"),
+                new DefaultStudent("Aiko")
         };
 
         AppDatabase db = AppDatabase.singleton(getApplicationContext());
@@ -56,38 +51,38 @@ public class MainActivity extends AppCompatActivity {
         db.studentDao().delete();
         db.courseDao().delete();
 
-        for (Student student : studentList) { db.studentDao().insert(student); }
+        for (DefaultStudent defaultStudent : defaultStudentList) { db.studentDao().insert(defaultStudent); }
 
-        List<Student> defaultStudents = db.studentDao().getAll();
+        List<DefaultStudent> defaultDefaultStudents = db.studentDao().getAll();
 
-        Course[] courseList = {
-                new Course(defaultStudents.get(0).getStudentId(), "2017", "Fall", "CSE 11"),
-                new Course(defaultStudents.get(0).getStudentId(), "2017", "Fall","CSE 12"),
-                new Course(defaultStudents.get(0).getStudentId(), "2017", "Fall","CSE 21"),
-                new Course(defaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 100"),
-                new Course(defaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 140"),
-                new Course(defaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 105"),
+        DefaultCourse[] defaultCourseList = {
+                new DefaultCourse(defaultDefaultStudents.get(0).getStudentId(), "2017", "Fall", "CSE 11"),
+                new DefaultCourse(defaultDefaultStudents.get(0).getStudentId(), "2017", "Fall","CSE 12"),
+                new DefaultCourse(defaultDefaultStudents.get(0).getStudentId(), "2017", "Fall","CSE 21"),
+                new DefaultCourse(defaultDefaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 100"),
+                new DefaultCourse(defaultDefaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 140"),
+                new DefaultCourse(defaultDefaultStudents.get(0).getStudentId(), "2019", "Spring","CSE 105"),
 
-                new Course(defaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 11"),
-                new Course(defaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 12"),
-                new Course(defaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 21"),
-                new Course(defaultStudents.get(1).getStudentId(), "2019", "Fall", "CSE 100"),
+                new DefaultCourse(defaultDefaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 11"),
+                new DefaultCourse(defaultDefaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 12"),
+                new DefaultCourse(defaultDefaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 21"),
+                new DefaultCourse(defaultDefaultStudents.get(1).getStudentId(), "2019", "Fall", "CSE 100"),
 
-                new Course(defaultStudents.get(2).getStudentId(), "2020", "Summer Session I","CSE 191"),
-                new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 142"),
-                new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 112"),
-                new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 167")
+                new DefaultCourse(defaultDefaultStudents.get(2).getStudentId(), "2020", "Summer Session I","CSE 191"),
+                new DefaultCourse(defaultDefaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 142"),
+                new DefaultCourse(defaultDefaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 112"),
+                new DefaultCourse(defaultDefaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 167")
         };
 
-        for (Course course : courseList) { db.courseDao().insert(course); }
+        for (DefaultCourse defaultCourse : defaultCourseList) { db.courseDao().insert(defaultCourse); }
 
         // FIXME -- test code
 
-        List<Student> sl = db.studentDao().getAll();
-        for (Student s : sl) {
-            List<Course> cl = db.courseDao().getForStudent(s.getStudentId());
+        List<DefaultStudent> sl = db.studentDao().getAll();
+        for (DefaultStudent s : sl) {
+            List<DefaultCourse> cl = db.courseDao().getForStudent(s.getStudentId());
             System.out.println(s.getName() + " " + s.getStudentId());
-            for (Course c : cl) {
+            for (DefaultCourse c : cl) {
                 System.out.println(c.getYear() + " " + c.getQuarter() + " " + c.getCourse());
             }
             //s.setEncounteredTrue();
@@ -95,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
         }
         System.out.println("---------------------");
 
-//        for (Course c : db.courseDao().getAll()) {
-//            Student s = db.studentDao().get(c.getStudentId());
+//        for (DefaultCourse c : db.courseDao().getAll()) {
+//            DefaultStudent s = db.studentDao().get(c.getStudentId());
 //
 //            System.out.println(s.getName());
 //            System.out.println("BEFORE: " + s.getEncountered());

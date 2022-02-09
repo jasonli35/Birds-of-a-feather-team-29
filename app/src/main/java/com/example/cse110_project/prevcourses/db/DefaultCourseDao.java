@@ -9,16 +9,16 @@ import androidx.room.Transaction;
 import java.util.List;
 
 @Dao
-public interface CourseDao {
+public interface DefaultCourseDao {
     @Transaction
     @Query("SELECT * FROM courses where student_id=:studentId")
-    List<Course> getForStudent(int studentId);
+    List<DefaultCourse> getForStudent(int studentId);
 
     @Query("SELECT * FROM courses")
-    List<Course> getAll();
+    List<DefaultCourse> getAll();
 
     @Query("SELECT * FROM courses WHERE student_id=:id")
-    Course get(int id);
+    DefaultCourse get(int id);
 
     @Query("DELETE FROM courses")
     void delete();
@@ -27,10 +27,10 @@ public interface CourseDao {
     int count();
 
     @Insert
-    void insert(Course course);
+    void insert(DefaultCourse defaultCourse);
 
     @Delete
-    void delete(Course course);
+    void delete(DefaultCourse defaultCourse);
 }
 
 /**

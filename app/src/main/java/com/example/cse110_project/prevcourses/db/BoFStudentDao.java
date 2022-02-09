@@ -8,22 +8,22 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface NewStudentDao {
+public interface BoFStudentDao {
     @Query("SELECT * FROM newStudents")
-    List<NewStudent> getAll();
+    List<BoFStudent> getAll();
 
     @Query("SELECT * FROM newStudents WHERE new_student_id=:id")
-    NewStudent get(int id);
+    BoFStudent get(int id);
 
     @Query("SELECT * FROM newStudents WHERE previous_student_id=:prevId")
-    NewStudent getBasedOnPrevId(int prevId);
+    BoFStudent getBasedOnPrevId(int prevId);
 
     @Query("DELETE FROM newStudents")
     void delete();
 
     @Insert
-    void insert(NewStudent student);
+    void insert(BoFStudent student);
 
     @Delete
-    void delete(NewStudent student);
+    void delete(BoFStudent student);
 }

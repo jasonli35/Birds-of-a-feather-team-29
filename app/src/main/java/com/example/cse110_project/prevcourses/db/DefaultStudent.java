@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 @Entity(tableName = "students")
-public class Student {
+public class DefaultStudent {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "student_id")
     public int studentId = 0;
@@ -18,7 +18,7 @@ public class Student {
     @ColumnInfo(name = "encountered")
     public boolean encountered;
 
-    public Student(String name) {
+    public DefaultStudent(String name) {
         this.name = name;
         this.encountered = false;
     }
