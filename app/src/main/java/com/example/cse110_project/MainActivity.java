@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 new Course(defaultStudents.get(1).getStudentId(), "2018", "Winter","CSE 21"),
                 new Course(defaultStudents.get(1).getStudentId(), "2019", "Fall", "CSE 100"),
 
-                new Course(defaultStudents.get(2).getStudentId(), "2020", "Summer Session 1","CSE 191"),
+                new Course(defaultStudents.get(2).getStudentId(), "2020", "Summer Session I","CSE 191"),
                 new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 142"),
                 new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 112"),
                 new Course(defaultStudents.get(2).getStudentId(), "2020", "Fall","CSE 167")
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (Course course : courseList) { db.courseDao().insert(course); }
 
-        //FIXME
+        // FIXME -- test code
 
         List<Student> sl = db.studentDao().getAll();
         for (Student s : sl) {
@@ -90,8 +90,23 @@ public class MainActivity extends AppCompatActivity {
             for (Course c : cl) {
                 System.out.println(c.getYear() + " " + c.getQuarter() + " " + c.getCourse());
             }
+            //s.setEncounteredTrue();
+            //System.out.println("Now..." + s.getEncountered());
         }
         System.out.println("---------------------");
+
+//        for (Course c : db.courseDao().getAll()) {
+//            Student s = db.studentDao().get(c.getStudentId());
+//
+//            System.out.println(s.getName());
+//            System.out.println("BEFORE: " + s.getEncountered());
+//            System.out.println("BEFORE: " + db.studentDao().get(s.getStudentId()).getEncountered());
+//
+//            db.studentDao().updateEncountered(true, s.getStudentId());
+//
+//            System.out.println("AFTER: " + s.getEncountered());
+//            System.out.println("AFTER: " + db.studentDao().get(s.getStudentId()).getEncountered());
+//        }
     }
 
     public void clearUserClassInfo() {

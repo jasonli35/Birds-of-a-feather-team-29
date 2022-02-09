@@ -28,7 +28,7 @@ public class StudentDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_student_detail);
 
         Intent intent = getIntent();
-        int studentId = intent.getIntExtra("student_id", 0);
+        int studentId = intent.getIntExtra("new_student_id", 0);
 
         db = AppDatabase.singleton(this);
         student = db.studentDao().get(studentId);

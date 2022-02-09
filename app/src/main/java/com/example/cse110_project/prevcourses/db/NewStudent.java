@@ -13,10 +13,14 @@ public class NewStudent {
     @ColumnInfo(name = "new_student_id")
     public int newStudentId;
 
+    @ColumnInfo(name = "previous_student_id")
+    public int prevStudentId;
+
     @ColumnInfo(name = "name")
     public String name;
 
-    public NewStudent(String name) {
+    public NewStudent(int prevStudentId, String name) {
+        this.prevStudentId = prevStudentId;
         this.name = name;
     }
 
@@ -27,6 +31,8 @@ public class NewStudent {
     public int getStudentId() {
         return newStudentId;
     }
+
+    public int getPrevStudentId() { return prevStudentId; }
 
     public String getName() {
         return name;

@@ -15,6 +15,9 @@ public interface NewStudentDao {
     @Query("SELECT * FROM newStudents WHERE new_student_id=:id")
     NewStudent get(int id);
 
+    @Query("SELECT * FROM newStudents WHERE previous_student_id=:prevId")
+    NewStudent getBasedOnPrevId(int prevId);
+
     @Query("DELETE FROM newStudents")
     void delete();
 

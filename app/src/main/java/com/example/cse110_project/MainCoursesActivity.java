@@ -140,7 +140,7 @@ public class MainCoursesActivity extends AppCompatActivity {
         // Adding the set of courses received above into a "main user class info" database as a value
         // mapped to a key representing the year, quarter, and subject
         String completeKey = currEnteredClassesSP.getString(YEAR_KEY, null)
-                + currEnteredClassesSP.getString(QTR_KEY, null) + subjectKey;
+                + "," + currEnteredClassesSP.getString(QTR_KEY, null) + "," + subjectKey;
         mainEditor.putStringSet(completeKey, set);
         mainEditor.apply();
 

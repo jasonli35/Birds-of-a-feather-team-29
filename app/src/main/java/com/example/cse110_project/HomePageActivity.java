@@ -33,7 +33,7 @@ public class HomePageActivity extends AppCompatActivity{
 
     protected RecyclerView studentsRecyclerView;
     protected RecyclerView.LayoutManager studentsLayoutManager;
-    protected StudentsViewAdapter studentsViewAdapter;
+    protected NewStudentViewAdapter studentsViewAdapter;
 
     private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
 
@@ -45,14 +45,14 @@ public class HomePageActivity extends AppCompatActivity{
         compareUserCoursesWithStudents();
 
         db = AppDatabase.singleton(getApplicationContext());
-        List<Student> students = db.studentDao().getAll();
+        List<NewStudent> students = db.newStudentDao().getAll();
 
         studentsRecyclerView = findViewById(R.id.students_view);
 
         studentsLayoutManager = new LinearLayoutManager(this);
         studentsRecyclerView.setLayoutManager(studentsLayoutManager);
 
-        studentsViewAdapter = new StudentsViewAdapter(students);
+        studentsViewAdapter = new NewStudentViewAdapter(students);
         studentsRecyclerView.setAdapter(studentsViewAdapter);
     }
 
@@ -113,24 +113,36 @@ public class HomePageActivity extends AppCompatActivity{
 //        System.out.println("-----------");
         // FIXME ---
 
-        db = AppDatabase.singleton(getApplicationContext());
-        List<Course> courseList;
-        Set<String> userCourses;
-        String[] split;
-        Student currStudent;
-        int studentId;
-
         // For each key, it gets the corresponding list of courses entered by the user
         // and cross-checks each course with the courses pre-populated into the database
         // FIXME: for now, doesn't allow duplicate names (could probably check with studentId)
 
-        NewStudent ns2 = new NewStudent("Elias");
-        System.out.println(ns2.getStudentId());
-        NewCourse nc2 = new NewCourse(ns2.getStudentId(), "CSE 1");
-        db.newStudentDao().insert(ns2);
-        db.newCourseDao().insert(nc2);
-        System.out.println(db.newStudentDao().getAll().get(0).getStudentId());
-        System.out.println(db.newCourseDao().getForStudent(ns2.getStudentId()).get(0).getText());
+//        NewStudent ns2 = new NewStudent("Elias");
+//        NewCourse nc2 = new NewCourse(ns2.getStudentId(), "2020", "Fall", "CSE 1");
+//        db.newStudentDao().insert(ns2);
+//        db.newCourseDao().insert(nc2);
+//        System.out.println(ns2.getName() + ", id before: " + ns2.getStudentId());
+//        System.out.println(db.newStudentDao().getAll().get(0).getName() + ", id after: "
+//                + db.newStudentDao().getAll().get(0).getStudentId());
+//        System.out.println(db.newCourseDao().getForStudent(ns2.getStudentId()).size());
+//        System.out.println(db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0));
+
+
+
+//        System.out.println(db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0).getYear() + " " +
+//                db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0).getQuarter() + " " +
+//                db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0).getCourse());
+
+
+
+        db = AppDatabase.singleton(getApplicationContext());
+        List<Course> courseList;
+        Set<String> userCourses;
+        String[] studentCourseSplit;
+        String[] userKeySplit;
+        String year;
+        String quarter;
+        int studentId;
 
         /*
          * Ex. User's entered previous courses = {140, 191}
@@ -144,44 +156,51 @@ public class HomePageActivity extends AppCompatActivity{
          *    in particular 191 during a particular year and quarter. Maps 191 to Aiko in NEW database.
          *  */
         for (Object o : keysArr) {
+            userKeySplit = ((String)o).split(",");
             userCourses = (Set<String>) userCoursesMap.get(o);
             courseList = db.courseDao().getAll();
 
+            System.out.print(userKeySplit[0] + " " + userKeySplit[1] + " " + userKeySplit[2]);
+            System.out.println();
+
             for (String uC : userCourses) {
                 for (Course cL : courseList) {
-                    split = cL.getCourse().split(" ");
-                    if (uC.equals(split[1])) {
-                        studentId = cL.getStudentId();
-                        NewStudent ns = new NewStudent(db.studentDao().get(studentId).getName());
-                        NewCourse nc = new NewCourse(studentId, split[1]);
+                    studentCourseSplit = cL.getCourse().split(" ");
+                    year = cL.getYear();
+                    quarter = cL.getQuarter();
 
-                        ns.setStudentId(studentId);
-                        db.newStudentDao().insert(ns);
+                    if (cL.getYear().equals(userKeySplit[0]) && cL.getQuarter().equals(userKeySplit[1])
+                            && studentCourseSplit[0].equals(userKeySplit[2])
+                            && studentCourseSplit[1].equals(uC)) {
+                        studentId = cL.getStudentId();
+
+                        // If the student has not been added to the new database, then we add the
+                        // student to the database
+                        if (!(db.studentDao().get(studentId).getEncountered())) {
+                            NewStudent ns = new NewStudent(studentId, db.studentDao().get(studentId).getName());
+                            db.newStudentDao().insert(ns);
+                            db.studentDao().updateEncountered(true, studentId);
+                        }
+
+                        studentId = db.newStudentDao().getBasedOnPrevId(studentId).getStudentId();
+                        NewCourse nc = new NewCourse(studentId, year, quarter, cL.getCourse());
                         db.newCourseDao().insert(nc);
                     }
                 }
             }
         }
 
-        System.out.println("Sizes: ");
-        List<NewStudent> ns = db.newStudentDao().getAll();
-        System.out.println(ns.size());
+        // FIXME: for testing purposes
+        /*System.out.print("Number of students in new database: ");
+        List<NewStudent> nsl = db.newStudentDao().getAll();
+        System.out.println(nsl.size());
+        for (NewStudent ns : nsl) {
+            List<NewCourse> ncl = db.newCourseDao().getForStudent(ns.getStudentId());
+            System.out.println("Name: " + ns.getName() + " [" + ns.getStudentId() + "] " + " [" + ns.getPrevStudentId() + "]");
+            for (NewCourse nc : ncl) {
+                System.out.println(nc.getCourse());
+            }
+            System.out.println("---");
+        }*/
     }
 }
-
-
-//            for (String course : userCourses) {
-//                for (Course uCourse : courseList) {
-//                    if (!course.equals(uCourse.getText())) {
-//                        id = uCourse.getStudentId();
-//                        currStudent = db.studentDao().get(id);
-//
-//                        db.courseDao().delete(uCourse);
-//
-//                        if (db.courseDao().getForStudent(id) == null
-//                                || db.courseDao().getForStudent(id).size() == 0) {
-//                            db.studentDao().delete(currStudent);
-//                        }
-//                    }
-//                }
-//            }

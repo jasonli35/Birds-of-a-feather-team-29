@@ -16,36 +16,36 @@ public class NewCourse {
     @ColumnInfo(name = "new_student_id")
     public int studentId;
 
-    @ColumnInfo(name = "text")
-    public String text;
+    @ColumnInfo(name = "year")
+    public String year;
 
-    public NewCourse(int studentId, String text){
+    @ColumnInfo(name = "quarter")
+    public String quarter;
+
+    @ColumnInfo(name = "course")
+    public String course;
+
+    public NewCourse(int studentId, String year, String quarter, String course) {
         this.studentId = studentId;
-        this.text = text;
-    }
-
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+        this.year = year;
+        this.quarter = quarter;
+        this.course = course;
     }
 
     public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public String getYear() { return year; }
+
+    public String getQuarter() { return quarter; }
+
+    public String getCourse() {
+        return course;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    public void setCourse(String course) {
+        this.course = course;
     }
 
 }

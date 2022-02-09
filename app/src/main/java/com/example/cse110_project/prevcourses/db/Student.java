@@ -15,8 +15,12 @@ public class Student {
     @ColumnInfo(name = "name")
     public String name;
 
+    @ColumnInfo(name = "encountered")
+    public boolean encountered;
+
     public Student(String name) {
         this.name = name;
+        this.encountered = false;
     }
 
     public int getStudentId() {
@@ -30,4 +34,8 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
+
+    public boolean getEncountered() { return encountered; }
+
+    public void setEncounteredTrue() { encountered = true; }
 }
