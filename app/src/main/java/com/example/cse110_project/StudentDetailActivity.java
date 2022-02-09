@@ -3,7 +3,6 @@ package com.example.cse110_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import com.example.cse110_project.prevcourses.IStudent;
 import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.Course;
+import com.example.cse110_project.prevcourses.db.Student;
 
 public class StudentDetailActivity extends AppCompatActivity {
     private AppDatabase db;
-    private IStudent student;
+    private Student student;
 
     private RecyclerView coursesRecyclerView;
     private RecyclerView.LayoutManager coursesLayoutManager;
@@ -34,7 +33,7 @@ public class StudentDetailActivity extends AppCompatActivity {
         int studentId = intent.getIntExtra("student_id", 0);
 
         db = AppDatabase.singleton(this);
-        student = db.studentWithCoursesDao().get(studentId);
+        student = db.studentDao().get(studentId);
         List<Course> courses = db.coursesDao().getForStudent(studentId);
 
         setTitle(student.getName());
@@ -43,9 +42,7 @@ public class StudentDetailActivity extends AppCompatActivity {
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
 
-        coursesViewAdapter = new CoursesViewAdapter(courses, (course) -> {
-            db.coursesDao().delete(course);
-        });
+        coursesViewAdapter = new CoursesViewAdapter(courses);
         coursesRecyclerView.setAdapter(coursesViewAdapter);
     }
 

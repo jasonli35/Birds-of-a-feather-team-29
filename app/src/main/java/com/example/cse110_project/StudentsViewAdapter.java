@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cse110_project.prevcourses.IStudent;
+import com.example.cse110_project.prevcourses.db.Student;
 
 import java.util.List;
 
 public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapter.ViewHolder> {
-    private final List<? extends IStudent> students;
+    private final List<Student> students;
 
-    public StudentsViewAdapter(List<? extends IStudent> students) {
+    public StudentsViewAdapter(List<Student> students) {
         super();
         this.students = students;
     }
@@ -42,11 +42,17 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         return this.students.size();
     }
 
+    public void addStudent(Student student) {
+        this.students.add(student);
+        this.notifyItemInserted(this.students.size()-1);
+    }
+
+
     public static class ViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private final TextView studentNameView;
-        private IStudent student;
+        private Student student;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -54,7 +60,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
             itemView.setOnClickListener(this);
         }
 
-        public void setStudent(IStudent student) {
+        public void setStudent(Student student) {
             this.student = student;
             this.studentNameView.setText(student.getName());
         }
@@ -63,7 +69,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         public void onClick(View view) {
             Context context = view.getContext();
             Intent intent = new Intent(context, StudentDetailActivity.class);
-            intent.putExtra("student_id", this.student.getId());
+            intent.putExtra("student_id", this.student.getStudentId());
             context.startActivity(intent);
         }
     }

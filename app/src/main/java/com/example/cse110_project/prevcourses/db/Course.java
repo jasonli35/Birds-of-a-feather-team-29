@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "courses")
 public class Course {
 
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    public int courseId;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "course_id")
+    public int courseId = 0;
 
     @ColumnInfo(name = "student_id")
     public int studentId;
@@ -17,9 +17,32 @@ public class Course {
     @ColumnInfo(name = "text")
     public String text;
 
-    public Course(int courseId, int studentId, String text){
-        this.courseId = courseId;
+    public Course(int studentId, String text){
         this.studentId = studentId;
+        this.text = text;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
         this.text = text;
     }
 }
