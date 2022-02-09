@@ -42,7 +42,6 @@ public class HomePageActivity extends AppCompatActivity{
         setContentView(R.layout.activity_home_page);
 
         db = AppDatabase.singleton(getApplicationContext());
-
         List<Student> students = db.studentDao().getAll();
 
         studentsRecyclerView = findViewById(R.id.students_view);
@@ -76,13 +75,12 @@ public class HomePageActivity extends AppCompatActivity{
             }
         };
         this.messageListener = new FakedMessageListener(realListener,3,MESSAGE);
-
-
     }
+
+    // FIXME add class for storing courses of a user
 
     //add student to both database and recycler view
     public void addStudent(String studentName) {
-
         Student newStudent = new Student();
 
         newStudent.setName(studentName);

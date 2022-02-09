@@ -14,13 +14,6 @@ import com.example.cse110_project.prevcourses.db.Course;
 
 public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.ViewHolder> {
     private final List<Course> courses;
-//    private final Consumer<Course> onCourseRemoved;
-
-//    public CoursesViewAdapter(List<Course> courses, Consumer<Course> onCourseRemoved) {
-//        super();
-//        this.courses = courses;
-//        this.onCourseRemoved = onCourseRemoved;
-//    }
 
     public CoursesViewAdapter(List<Course> courses) {
         super();
@@ -34,7 +27,6 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
                 .from(parent.getContext())
                 .inflate(R.layout.courses_row, parent, false);
 
-        //return new ViewHolder(view, this::removeCourse, onCourseRemoved);
         return new ViewHolder(view);
     }
 
@@ -48,18 +40,7 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
         return this.courses.size();
     }
 
-//    public void addCourse(Course course) {
-//        this.courses.add(course);
-//        this.notifyItemInserted(this.courses.size()-1);
-//    }
-
-//    public void removeCourse(int position){
-//        this.courses.remove(position);
-//        this.notifyItemRemoved(position);
-//    }
-
-    public static class ViewHolder
-            extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView courseTextView;
         private Course course;
 
@@ -67,17 +48,6 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<CoursesViewAdapter.
             super(itemView);
             this.courseTextView = itemView.findViewById(R.id.courses_row_text);
         }
-
-//        ViewHolder(View itemView, Consumer<Integer> removeCourse, Consumer<Course> onCourseRemoved) {
-//            super(itemView);
-//            this.courseTextView= itemView.findViewById(R.id.courses_row_text);
-//
-//            Button removeButton = itemView.findViewById(R.id.remove_course_button);
-//            removeButton.setOnClickListener((view) -> {
-//                removeCourse.accept(this.getAdapterPosition());
-//                onCourseRemoved.accept(course);
-//            });
-//        }
 
         public void setCourse(Course course) {
             this.course = course;

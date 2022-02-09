@@ -47,7 +47,6 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
         this.notifyItemInserted(this.students.size()-1);
     }
 
-
     public static class ViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
@@ -70,6 +69,7 @@ public class StudentsViewAdapter extends RecyclerView.Adapter<StudentsViewAdapte
             Context context = view.getContext();
             Intent intent = new Intent(context, StudentDetailActivity.class);
             intent.putExtra("student_id", this.student.getStudentId());
+
             context.startActivity(intent);
         }
     }

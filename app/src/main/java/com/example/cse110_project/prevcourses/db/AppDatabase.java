@@ -29,7 +29,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract StudentDao studentDao();
-    public abstract CourseDao coursesDao();
+    public abstract CourseDao courseDao();
 
     public AppDatabase getSingletonInstance() {
         return singletonInstance;

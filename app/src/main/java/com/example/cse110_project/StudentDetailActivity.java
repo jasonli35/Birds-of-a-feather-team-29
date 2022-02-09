@@ -27,14 +27,12 @@ public class StudentDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_detail);
 
-        //TextView studentCoursesView = findViewById(R.id.student_detail_courses);
-
         Intent intent = getIntent();
         int studentId = intent.getIntExtra("student_id", 0);
 
         db = AppDatabase.singleton(this);
         student = db.studentDao().get(studentId);
-        List<Course> courses = db.coursesDao().getForStudent(studentId);
+        List<Course> courses = db.courseDao().getForStudent(studentId);
 
         setTitle(student.getName());
 
@@ -46,8 +44,8 @@ public class StudentDetailActivity extends AppCompatActivity {
         coursesRecyclerView.setAdapter(coursesViewAdapter);
     }
 
-    public void onGoBackClicked(View view) {
-        finish();
-    }
 
+    public void onGoBackClicked(View view) {
+
+    }
 }
