@@ -95,8 +95,6 @@ public class HomePageActivity extends AppCompatActivity{
         return ret;
     }
 
-
-
     @Override
     protected void onStart(){
         super.onStart();
@@ -108,5 +106,4 @@ public class HomePageActivity extends AppCompatActivity{
         super.onStop();
         //Nearby.getMessagesClient(this).unsubscribe(messageListener);
     }
-
 }

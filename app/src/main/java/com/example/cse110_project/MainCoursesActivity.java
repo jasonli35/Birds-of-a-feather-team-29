@@ -25,13 +25,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.cse110_project.prevcourses.db.PreviousCoursesDB;
-
-import org.w3c.dom.Text;
-
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 public class MainCoursesActivity extends AppCompatActivity {
     /** Constants */
