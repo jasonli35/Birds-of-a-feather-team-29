@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 import java.util.HashSet;
 
-public class MainCoursesActivity extends AppCompatActivity {
+public class AddCoursesMainActivity extends AppCompatActivity {
     /** Constants */
     private static final String NO_SUB_OR_COURSE_NUMBER_WARNING = "Please enter a subject or course" +
             " number in the respective empty field.";
@@ -35,7 +35,6 @@ public class MainCoursesActivity extends AppCompatActivity {
             " selected year and quarter to proceed to the next page.";
     private static final String SHARED_PREF_CURR_ENTERED_CLASSES_DB = "currEnteredClasses";
     private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
-    private static final String SHARED_PREF_ALL_COMPLETE_KEYS_DB = "allCompleteKeys";
     private static final String YEAR_KEY = "year";
     private static final String QTR_KEY = "quarter";
     private static final String INIT_SUBJECT_KEY = "initSubject";
@@ -44,14 +43,11 @@ public class MainCoursesActivity extends AppCompatActivity {
     private static final String WARNING = "Warning!";
     private static final String EMPTY_STRING = "";
 
-    /** Static variables */
-    static int keyNumber = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_courses);
-        setTitle("Birds of a Feather");
+        setTitle("Birds of a Feather v0.0.1");
 
         addCoursesToDatabase();
         disableDoneClickable();
@@ -59,12 +55,6 @@ public class MainCoursesActivity extends AppCompatActivity {
         initQuarterDropdown();
     }
 
-    /**
-     * Proceeds the User to AddCoursesActivity page
-     *
-     * @return True if successful, otherwise false if the user has left the subject or course number
-     *         entry blank
-     * */
     public void onClickEnter(View view) {
         TextView subject = findViewById(R.id.enter_subject_textview);
         TextView courseNumber = findViewById(R.id.enter_course_textview);
@@ -144,13 +134,6 @@ public class MainCoursesActivity extends AppCompatActivity {
         mainEditor.putStringSet(completeKey, set);
         mainEditor.apply();
 
-        // Saving the key mapped to by the set above into a "key" database for future reference
-        SharedPreferences completeKeysSP = getSharedPreferencesDatabase(SHARED_PREF_ALL_COMPLETE_KEYS_DB);
-        SharedPreferences.Editor completeKeysEditor = completeKeysSP.edit();
-        completeKeysEditor.putString(Integer.toString(keyNumber), completeKey);
-        completeKeysEditor.apply();
-
-        keyNumber++;
 
         return true;
     }

@@ -2,6 +2,7 @@ package com.example.cse110_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -13,11 +14,10 @@ public class EnterNameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_name);
-        System.out.println("TESTING");
+        setTitle("Birds of a Feather v0.0.1");
     }
 
-
-    public void confirm(View view) {
+    public void onConfirmButtonClicked(View view) {
         TextView nameTextView = findViewById(R.id.enter_name);
         String name = nameTextView.getText().toString();
         if(!isValidName(name)){
@@ -27,12 +27,13 @@ public class EnterNameActivity extends AppCompatActivity {
             });
         }
         else {
-            SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+            SharedPreferences preferences = getSharedPreferences("USER_INFO", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("name", name);
-
+            editor.putString("userFirstName", name);
         }
 
+        Intent intent = new Intent(this, AddCoursesMainActivity.class);
+        startActivity(intent);
     }
 
     public static boolean isValidName(String name){
