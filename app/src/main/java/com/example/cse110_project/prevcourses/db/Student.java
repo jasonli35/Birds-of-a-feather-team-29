@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity(tableName = "students")
 public class Student {
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "student_id")
     public int studentId = 0;
@@ -16,12 +15,16 @@ public class Student {
     @ColumnInfo(name = "name")
     public String name;
 
-    public int getStudentId() {
-        return studentId;
+    @ColumnInfo(name = "encountered")
+    public boolean encountered;
+
+    public Student(String name) {
+        this.name = name;
+        this.encountered = false;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public int getStudentId() {
+        return studentId;
     }
 
     public String getName() {
@@ -32,4 +35,7 @@ public class Student {
         this.name = name;
     }
 
+    public boolean getEncountered() { return encountered; }
+
+    public void setEncounteredTrue() { encountered = true; }
 }

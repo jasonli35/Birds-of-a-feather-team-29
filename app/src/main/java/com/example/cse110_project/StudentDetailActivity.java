@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.Course;
+import com.example.cse110_project.prevcourses.db.NewCourse;
 import com.example.cse110_project.prevcourses.db.Student;
 
 public class StudentDetailActivity extends AppCompatActivity {
@@ -20,21 +21,19 @@ public class StudentDetailActivity extends AppCompatActivity {
 
     private RecyclerView coursesRecyclerView;
     private RecyclerView.LayoutManager coursesLayoutManager;
-    private CoursesViewAdapter coursesViewAdapter;
+    private NewCourseViewAdapter coursesViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_detail);
 
-        //TextView studentCoursesView = findViewById(R.id.student_detail_courses);
-
         Intent intent = getIntent();
-        int studentId = intent.getIntExtra("student_id", 0);
+        int studentId = intent.getIntExtra("new_student_id", 0);
 
         db = AppDatabase.singleton(this);
         student = db.studentDao().get(studentId);
-        List<Course> courses = db.coursesDao().getForStudent(studentId);
+        List<NewCourse> courses = db.newCourseDao().getForStudent(studentId);
 
         setTitle(student.getName());
 
@@ -42,12 +41,11 @@ public class StudentDetailActivity extends AppCompatActivity {
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
 
-        coursesViewAdapter = new CoursesViewAdapter(courses);
+        coursesViewAdapter = new NewCourseViewAdapter(courses);
         coursesRecyclerView.setAdapter(coursesViewAdapter);
     }
 
     public void onGoBackClicked(View view) {
         finish();
     }
-
 }

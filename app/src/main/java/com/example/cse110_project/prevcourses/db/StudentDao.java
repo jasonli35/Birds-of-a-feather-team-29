@@ -15,9 +15,22 @@ public interface StudentDao {
     @Query("SELECT * FROM students WHERE student_id=:id")
     Student get(int id);
 
+    @Query("DELETE FROM students")
+    void delete();
+
+    @Query("UPDATE students SET encountered=:encounter WHERE student_id=:id")
+    void updateEncountered(boolean encounter, int id);
+
     @Insert
     void insert(Student student);
 
     @Delete
     void delete(Student student);
 }
+
+/**
+ * Source:
+ *
+ * How to permanently update data in Room database -
+ * https://stackoverflow.com/questions/45789325/update-some-specific-field-of-an-entity-in-android-room
+ * */

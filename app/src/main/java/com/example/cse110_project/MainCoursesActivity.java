@@ -25,13 +25,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.cse110_project.prevcourses.db.PreviousCoursesDB;
-
-import org.w3c.dom.Text;
-
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 public class MainCoursesActivity extends AppCompatActivity {
     /** Constants */
@@ -146,7 +140,7 @@ public class MainCoursesActivity extends AppCompatActivity {
         // Adding the set of courses received above into a "main user class info" database as a value
         // mapped to a key representing the year, quarter, and subject
         String completeKey = currEnteredClassesSP.getString(YEAR_KEY, null)
-                + currEnteredClassesSP.getString(QTR_KEY, null) + subjectKey;
+                + "," + currEnteredClassesSP.getString(QTR_KEY, null) + "," + subjectKey;
         mainEditor.putStringSet(completeKey, set);
         mainEditor.apply();
 
