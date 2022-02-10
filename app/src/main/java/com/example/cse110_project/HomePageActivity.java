@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -50,10 +51,16 @@ public class HomePageActivity extends AppCompatActivity{
         studentsRecyclerView.setAdapter(studentsViewAdapter);
     }
 
+    // FIXME: fix start/stop button
     public void onClickStart(View view) {
         TextView topLeftButton = findViewById(R.id.start_button);
         if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
         else { topLeftButton.setText("Start"); }
+    }
+
+    public void onBackButtonClicked(View view) {
+        Intent intent = new Intent(this, AddCoursesMainActivity.class);
+        startActivity(intent);
     }
 
     public void compareUserCoursesWithStudents() {
