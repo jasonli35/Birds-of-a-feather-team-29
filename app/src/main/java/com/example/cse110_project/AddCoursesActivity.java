@@ -52,7 +52,7 @@ public class AddCoursesActivity extends AppCompatActivity {
     }
 
     public void onBackClicked(View view) {
-        Intent intent = new Intent(this, MainCoursesActivity.class);
+        Intent intent = new Intent(this, AddCoursesMainActivity.class);
 
         SharedPreferences preferences = getSharedPreferences(SHARED_PREF_CURR_ENTERED_CLASSES_DB, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

@@ -21,7 +21,7 @@
     <EditText
         android:id="@+id/enter_name"
         android:layout_width="212dp"
-        android:layout_height="41dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:hint="Enter your name here"
         android:inputType="textPersonName"
@@ -37,8 +37,8 @@
         android:id="@+id/confirm_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="confirm"
         android:text="Confirm"
+        android:onClick="onConfirmButtonClicked"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintLeft_toLeftOf="parent"

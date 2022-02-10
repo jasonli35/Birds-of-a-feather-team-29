@@ -1,8 +1,6 @@
 package com.example.cse110_project;
 
-import android.content.SharedPreferences;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.lifecycle.Lifecycle;
@@ -14,19 +12,17 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.HashSet;
-
 @RunWith(AndroidJUnit4.class)
-public class MainCoursesActivityTest {
+public class AddCoursesMainActivityTest {
     @Rule
-    public ActivityScenarioRule<MainCoursesActivity> rule = new ActivityScenarioRule<>(MainCoursesActivity.class);
+    public ActivityScenarioRule<AddCoursesMainActivity> rule = new ActivityScenarioRule<>(AddCoursesMainActivity.class);
 
     /**
-     * Unit test of MainCoursesActivity:addCoursesToDatabase()
+     * Unit test of AddCoursesMainActivity:addCoursesToDatabase()
      * */
     @Test
     public void test_Func_addCoursesToDatabase() {
-        ActivityScenario<MainCoursesActivity> scenario = rule.getScenario();
+        ActivityScenario<AddCoursesMainActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
             assert(!activity.addCoursesToDatabase());
@@ -34,14 +30,14 @@ public class MainCoursesActivityTest {
     }
 
     /**
-     * Unit test of MainCoursesActivity:disableDoneClickable()
+     * Unit test of AddCoursesMainActivity:disableDoneClickable()
      * &
      * BDD Scenario Acceptance Test (Story Test)
      *     - Tests Scenario 2: Premise is that the user hasn't entered any courses into the database
      * */
     @Test
     public void test_Func_disableDoneClickable() {
-        ActivityScenario<MainCoursesActivity> scenario = rule.getScenario();
+        ActivityScenario<AddCoursesMainActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
             Button doneButton = activity.findViewById(R.id.done_button);
@@ -51,7 +47,7 @@ public class MainCoursesActivityTest {
 
     @Test
     public void test_Subject_TextView_Is_Initially_Empty() {
-        ActivityScenario<MainCoursesActivity> scenario = rule.getScenario();
+        ActivityScenario<AddCoursesMainActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
             TextView subject = activity.findViewById(R.id.enter_subject_textview);
@@ -61,7 +57,7 @@ public class MainCoursesActivityTest {
 
     @Test
     public void test_Course_Number_TextView_Is_Initially_Empty() {
-        ActivityScenario<MainCoursesActivity> scenario = rule.getScenario();
+        ActivityScenario<AddCoursesMainActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
             TextView courseEntry = activity.findViewById(R.id.enter_course_textview);

@@ -8,12 +8,12 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface StudentDao {
+public interface DefaultStudentDao {
     @Query("SELECT * FROM students")
-    List<Student> getAll();
+    List<DefaultStudent> getAll();
 
     @Query("SELECT * FROM students WHERE student_id=:id")
-    Student get(int id);
+    DefaultStudent get(int id);
 
     @Query("DELETE FROM students")
     void delete();
@@ -22,10 +22,10 @@ public interface StudentDao {
     void updateEncountered(boolean encounter, int id);
 
     @Insert
-    void insert(Student student);
+    void insert(DefaultStudent defaultStudent);
 
     @Delete
-    void delete(Student student);
+    void delete(DefaultStudent defaultStudent);
 }
 
 /**

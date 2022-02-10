@@ -10,21 +10,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cse110_project.prevcourses.db.NewStudent;
+import com.example.cse110_project.prevcourses.db.AppDatabase;
+import com.example.cse110_project.prevcourses.db.BoFStudent;
 
 import java.util.List;
 
-public class NewStudentViewAdapter extends RecyclerView.Adapter<NewStudentViewAdapter.ViewHolder> {
-    private final List<NewStudent> students;
+public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAdapter.ViewHolder> {
+    private final List<BoFStudent> students;
 
-    public NewStudentViewAdapter(List<NewStudent> students) {
+    public BoFStudentViewAdapter(List<BoFStudent> students) {
         super();
         this.students = students;
     }
 
     @NonNull
     @Override
-    public NewStudentViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BoFStudentViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.student_row, parent, false);
@@ -33,7 +34,7 @@ public class NewStudentViewAdapter extends RecyclerView.Adapter<NewStudentViewAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewStudentViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BoFStudentViewAdapter.ViewHolder holder, int position) {
         holder.setStudent(students.get(position));
     }
 
@@ -42,16 +43,11 @@ public class NewStudentViewAdapter extends RecyclerView.Adapter<NewStudentViewAd
         return this.students.size();
     }
 
-    public void addStudent(NewStudent student) {
-        this.students.add(student);
-        this.notifyItemInserted(this.students.size()-1);
-    }
-
     public static class ViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private final TextView studentNameView;
-        private NewStudent student;
+        private BoFStudent student;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -59,7 +55,7 @@ public class NewStudentViewAdapter extends RecyclerView.Adapter<NewStudentViewAd
             itemView.setOnClickListener(this);
         }
 
-        public void setStudent(NewStudent student) {
+        public void setStudent(BoFStudent student) {
             this.student = student;
             this.studentNameView.setText(student.getName());
         }
@@ -68,7 +64,7 @@ public class NewStudentViewAdapter extends RecyclerView.Adapter<NewStudentViewAd
         public void onClick(View view) {
             Context context = view.getContext();
             Intent intent = new Intent(context, StudentDetailActivity.class);
-            intent.putExtra("new_student_id", this.student.getStudentId());
+            intent.putExtra("bof_student_id", this.student.getStudentId());
 
             context.startActivity(intent);
         }

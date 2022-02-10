@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainCoursesActivity">
+    tools:context=".AddCoursesMainActivity">
 
     <TextView
         android:id="@+id/enter_prev_courses_header_textview"
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/enter_previous_courses"
         android:textSize="35sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.489"
@@ -124,5 +125,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.325"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/note_textview"
+        android:layout_width="302dp"
+        android:layout_height="41dp"
+        android:text="Note: Please click Enter to save the entered class."
+        android:textAlignment="center"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.104" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

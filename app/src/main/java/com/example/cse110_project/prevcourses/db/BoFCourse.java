@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import java.util.List;
 
 @Entity(tableName = "newCourse")
-public class NewCourse {
+public class BoFCourse {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "new_course_id")
@@ -25,7 +25,7 @@ public class NewCourse {
     @ColumnInfo(name = "course")
     public String course;
 
-    public NewCourse(int studentId, String year, String quarter, String course) {
+    public BoFCourse(int studentId, String year, String quarter, String course) {
         this.studentId = studentId;
         this.year = year;
         this.quarter = quarter;
