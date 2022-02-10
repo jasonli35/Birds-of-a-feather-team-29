@@ -34,6 +34,7 @@ public class HomePageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        setTitle("Birds of a Feather");
 
         compareUserCoursesWithStudents();
 
@@ -56,85 +57,14 @@ public class HomePageActivity extends AppCompatActivity{
     }
 
     public void compareUserCoursesWithStudents() {
-        ArrayList<String> ret = new ArrayList<>();
+        db = AppDatabase.singleton(getApplicationContext());
         SharedPreferences sp = getSharedPreferences(SHARED_PREF_MAIN_USER_CLASS_INFO_DB, MODE_PRIVATE);
         Map<String, ?> userCoursesMap = sp.getAll();
-        Set<String> keys = userCoursesMap.keySet();
-        Object[] keysArr = keys.toArray();
-
-        // FIXME ---
-//        System.out.println("-----------");
-//
-//        System.out.println("Number of keys: " + keysArr.length);
-//        for (Object o : keysArr) {
-//            System.out.println(o);
-//
-//            Set<String> s = (Set<String>) userCoursesMap.get(o);
-//            for (String num : s) {
-//                System.out.print(num + " ");
-//            }
-//            System.out.println();
-//        }
-//
-//        System.out.println("-----------");
-
-        // FIXME: for comparing with database
-//        db = AppDatabase.singleton(getApplicationContext());
-//        List<DefaultCourse> c = db.courseDao().getForStudent(0);
-//        System.out.println(c.size());
-//        String[] tokens;
-//        for (DefaultCourse cc : c) {
-//            tokens = cc.getText().split(" ");
-//            System.out.println(tokens[1]);
-//        }
-
-        // FIXME: checking if course is being deleted
-//        db = AppDatabase.singleton(getApplicationContext());
-//        List<DefaultCourse> cl = db.courseDao().getAll();
-//        for (DefaultCourse c : cl) {
-//            System.out.println(c.getStudentId() + " " + c.getText());
-//        }
-//        System.out.println("steel's: " + db.courseDao().getForStudent(0).size());
-//        db.courseDao().delete(cl.get(0));
-//        System.out.println("After");
-//        System.out.println("steel's: " + db.courseDao().getForStudent(0).size());
-//        cl = db.courseDao().getAll();
-//        for (DefaultCourse c : cl) {
-//            System.out.println(c.getStudentId() + " " + c.getText());
-//        }
-//
-//        System.out.println("-----------");
-        // FIXME ---
-
-        // For each key, it gets the corresponding list of courses entered by the user
-        // and cross-checks each course with the courses pre-populated into the database
-        // FIXME: for now, doesn't allow duplicate names (could probably check with studentId)
-
-//        BoFStudent ns2 = new BoFStudent("Elias");
-//        BoFCourse nc2 = new BoFCourse(ns2.getStudentId(), "2020", "Fall", "CSE 1");
-//        db.newStudentDao().insert(ns2);
-//        db.newCourseDao().insert(nc2);
-//        System.out.println(ns2.getName() + ", id before: " + ns2.getStudentId());
-//        System.out.println(db.newStudentDao().getAll().get(0).getName() + ", id after: "
-//                + db.newStudentDao().getAll().get(0).getStudentId());
-//        System.out.println(db.newCourseDao().getForStudent(ns2.getStudentId()).size());
-//        System.out.println(db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0));
-
-
-
-//        System.out.println(db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0).getYear() + " " +
-//                db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0).getQuarter() + " " +
-//                db.newCourseDao().getForStudent(db.newStudentDao().getAll().get(0).getStudentId()).get(0).getCourse());
-
-
-
-        db = AppDatabase.singleton(getApplicationContext());
+        Object[] keysArr = userCoursesMap.keySet().toArray();
         List<DefaultCourse> defaultCourseList;
         Set<String> userCourses;
-        String[] studentCourseSplit;
-        String[] userKeySplit;
-        String year;
-        String quarter;
+        String[] studentCourseSplit, userKeySplit;
+        String year, quarter;
         int studentId;
 
         /*
@@ -167,8 +97,8 @@ public class HomePageActivity extends AppCompatActivity{
                             && studentCourseSplit[1].equals(uC)) {
                         studentId = cL.getStudentId();
 
-                        // If the student has not been added to the new database, then we add the
-                        // student to the database
+                        // If the student has not been added to the BoF database, then we add the
+                        // student to the BoF database
                         if (!(db.studentDao().get(studentId).getEncountered())) {
                             BoFStudent ns = new BoFStudent(studentId, db.studentDao().get(studentId).getName());
                             db.newStudentDao().insert(ns);

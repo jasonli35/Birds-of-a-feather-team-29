@@ -42,11 +42,6 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
         return this.students.size();
     }
 
-    public void addStudent(BoFStudent student) {
-        this.students.add(student);
-        this.notifyItemInserted(this.students.size()-1);
-    }
-
     public static class ViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
@@ -68,7 +63,7 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
         public void onClick(View view) {
             Context context = view.getContext();
             Intent intent = new Intent(context, StudentDetailActivity.class);
-            intent.putExtra("new_student_id", this.student.getStudentId());
+            intent.putExtra("bof_student_id", this.student.getStudentId());
 
             context.startActivity(intent);
         }
