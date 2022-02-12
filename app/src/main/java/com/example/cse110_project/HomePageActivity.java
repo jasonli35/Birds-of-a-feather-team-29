@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.BoFCourse;
+import com.example.cse110_project.prevcourses.db.BoFCourseDao;
 import com.example.cse110_project.prevcourses.db.BoFStudent;
 import com.example.cse110_project.prevcourses.db.DefaultCourse;
 
@@ -72,6 +73,7 @@ public class HomePageActivity extends AppCompatActivity{
         Set<String> userCourses;
         String[] studentCourseSplit, userKeySplit;
         String year, quarter;
+        boolean skipCourse = false;
         int studentId;
 
         // Cross-checks the classes entered by the user with the students pre-populated into the
@@ -86,6 +88,7 @@ public class HomePageActivity extends AppCompatActivity{
             for (String uC : userCourses) {
                 // Iterates through all the remaining courses in the pre-populated database
                 for (DefaultCourse cL : defaultCourseList) {
+                    skipCourse = false;
                     studentCourseSplit = cL.getCourse().split(" ");
                     year = cL.getYear();
                     quarter = cL.getQuarter();
@@ -95,6 +98,17 @@ public class HomePageActivity extends AppCompatActivity{
                             && studentCourseSplit[1].equals(uC)) {
                         studentId = cL.getStudentId();
 
+                        if (db.studentDao().get(studentId).getEncountered()) {
+                            List<BoFCourse> studentCourses = db.BoFCourseDao().getForStudent(studentId);
+                            for (BoFCourse course : studentCourses) {
+                                if (course.getCourse().equals(cL.getCourse())) {
+                                    skipCourse = true;
+                                    break;
+                                }
+                            }
+                            if (skipCourse) { continue; }
+                        }
+
                         // If the student has not been added to the BoF database, then we add the
                         // student to the BoF database
                         if (!(db.studentDao().get(studentId).getEncountered())) {
@@ -102,6 +116,11 @@ public class HomePageActivity extends AppCompatActivity{
                             db.BoFStudentDao().insert(ns);
                             db.studentDao().updateEncountered(true, studentId);
                         }
+
+                        // FIXME:
+                        //  Case: If the student already has the course associated with them in the
+                        //        database
+
 
                         studentId = db.BoFStudentDao().getBasedOnPrevId(studentId).getStudentId();
                         BoFCourse nc = new BoFCourse(studentId, year, quarter, cL.getCourse());
