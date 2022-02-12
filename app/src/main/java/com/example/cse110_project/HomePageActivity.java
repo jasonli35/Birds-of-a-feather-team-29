@@ -74,23 +74,17 @@ public class HomePageActivity extends AppCompatActivity{
         String year, quarter;
         int studentId;
 
-        /*
-         * Ex. User's entered previous courses = {140, 191}
-         *
-         * Algorithm cross-checks 140 with every course in the pre-populated database.
-         * Similar logic for 191.
-         *
-         * 1) Adds Steel to NEW DefaultStudent database as a student the User shares previous courses with,
-         *    in particular 140 during a particular year and quarter. Maps 140 to Steel in NEW database.
-         * 2) Adds Aiko to NEW DefaultCourse database as a student the User shares previous courses with,
-         *    in particular 191 during a particular year and quarter. Maps 191 to Aiko in NEW database.
-         *  */
+        // Cross-checks the classes entered by the user with the students pre-populated into the
+        // database
         for (Object o : keysArr) {
             userKeySplit = ((String)o).split(",");
             userCourses = (Set<String>) userCoursesMap.get(o);
             defaultCourseList = db.courseDao().getAll();
 
+            // Iterates through the course numbers entered by the user for a specific year, quarter,
+            // and course
             for (String uC : userCourses) {
+                // Iterates through all the remaining courses in the pre-populated database
                 for (DefaultCourse cL : defaultCourseList) {
                     studentCourseSplit = cL.getCourse().split(" ");
                     year = cL.getYear();

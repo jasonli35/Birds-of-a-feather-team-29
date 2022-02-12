@@ -59,11 +59,12 @@ public class AddCoursesActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         Bundle extras = getIntent().getExtras();
         HashSet<String> set = new HashSet<>();
-        for (String courses : this.enteredCourses) {
-            set.add(courses);
-        }
+        for (String courses : this.enteredCourses) { set.add(courses); }
         editor.putStringSet(extras.getString(INIT_SUBJECT_KEY), set);
         editor.apply();
+
+        // FIXME:
+
         intent.putExtra("subjectKey", extras.getString(INIT_SUBJECT_KEY));
 
         startActivity(intent);

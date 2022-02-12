@@ -34,7 +34,7 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
                 .from(parent.getContext())
                 .inflate(R.layout.bof_student_row, parent, false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view, cd);
     }
 
     @Override
@@ -51,17 +51,22 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private final TextView studentNameView;
+        private final TextView numOfSharedCoursesView;
         private BoFStudent student;
+        private BoFCourseDao cd;
 
-        ViewHolder(View itemView) {
+        ViewHolder(View itemView, BoFCourseDao cd) {
             super(itemView);
             this.studentNameView = itemView.findViewById(R.id.student_row_name);
+            this.cd = cd;
+            this.numOfSharedCoursesView = itemView.findViewById(R.id.num_shared_courses_textview);
             itemView.setOnClickListener(this);
         }
 
         public void setStudent(BoFStudent student) {
             this.student = student;
             this.studentNameView.setText(student.getName());
+            this.numOfSharedCoursesView.setText(Integer.toString(cd.getForStudent(student.getStudentId()).size()));
         }
 
         @Override

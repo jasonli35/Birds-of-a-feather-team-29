@@ -131,6 +131,13 @@ public class AddCoursesMainActivity extends AppCompatActivity {
         // mapped to a key representing the year, quarter, and subject
         String completeKey = currEnteredClassesSP.getString(YEAR_KEY, null)
                 + "," + currEnteredClassesSP.getString(QTR_KEY, null) + "," + subjectKey;
+
+        // FIXME:
+        if (mainUserClassInfoSP.contains(completeKey)) {
+            HashSet<String> set2 = (HashSet<String>) mainUserClassInfoSP.getStringSet(completeKey, null);
+            set.addAll(set2);
+        }
+
         mainEditor.putStringSet(completeKey, set);
         mainEditor.apply();
 
