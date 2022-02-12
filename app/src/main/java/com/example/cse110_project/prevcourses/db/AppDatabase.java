@@ -31,10 +31,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract DefaultStudentDao studentDao();
     public abstract DefaultCourseDao courseDao();
-    public abstract BoFStudentDao newStudentDao();
-    public abstract BoFCourseDao newCourseDao();
-
-    public AppDatabase getSingletonInstance() {
+    public abstract BoFStudentDao BoFStudentDao();
+    public abstract BoFCourseDao BoFCourseDao();
+    public static AppDatabase getSingletonInstance() {
         return singletonInstance;
     }
 }

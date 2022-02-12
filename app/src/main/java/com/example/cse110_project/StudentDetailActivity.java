@@ -32,7 +32,7 @@ public class StudentDetailActivity extends AppCompatActivity {
 
         db = AppDatabase.singleton(this);
         defaultStudent = db.studentDao().get(studentId);
-        List<BoFCourse> courses = db.newCourseDao().getForStudent(studentId);
+        List<BoFCourse> courses = db.BoFCourseDao().getForStudent(studentId);
 
         setTitle(defaultStudent.getName());
 
