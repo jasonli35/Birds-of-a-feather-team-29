@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 new DefaultCourse(defStudentsList.get(1).getStudentId(), "2019",
                         "Fall", "CSE 100"),
 
+                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2018",
+                        "Spring","CSE 15L"),
                 new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
                         "Summer Session I","CSE 191"),
                 new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",

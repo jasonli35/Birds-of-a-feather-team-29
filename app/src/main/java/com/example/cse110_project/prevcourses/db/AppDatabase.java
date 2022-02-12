@@ -16,7 +16,7 @@ public abstract class AppDatabase extends RoomDatabase {
             singletonInstance = Room.databaseBuilder(context, AppDatabase.class, "students.db")
                     .createFromAsset("starter-students.db")
                     .allowMainThreadQueries()
-                    //.fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration()
                     .build();
 
         }

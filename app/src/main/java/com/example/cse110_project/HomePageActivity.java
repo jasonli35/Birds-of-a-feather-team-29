@@ -35,7 +35,7 @@ public class HomePageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        setTitle("Birds of a Feather");
+        setTitle("Birds of a Feather v0.0.1");
 
         compareUserCoursesWithStudents();
 
