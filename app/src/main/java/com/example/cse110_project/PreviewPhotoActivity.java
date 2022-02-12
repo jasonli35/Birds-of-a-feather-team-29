@@ -20,6 +20,7 @@ public class PreviewPhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview_photo);
         SharedPreferences preferences = getSharedPreferences("USER_INFO", MODE_PRIVATE);
+        setTitle("Birds of a Feather v0.0.1");
 
 
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
