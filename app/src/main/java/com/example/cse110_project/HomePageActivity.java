@@ -73,7 +73,7 @@ public class HomePageActivity extends AppCompatActivity{
         Set<String> userCourses;
         String[] studentCourseSplit, userKeySplit;
         String year, quarter;
-        boolean skipCourse = false;
+        boolean skipCourse;
         int studentId;
 
         // Cross-checks the classes entered by the user with the students pre-populated into the
@@ -98,6 +98,8 @@ public class HomePageActivity extends AppCompatActivity{
                             && studentCourseSplit[1].equals(uC)) {
                         studentId = cL.getStudentId();
 
+                        // Checks whether or not the student already has the course associated with them
+                        // in the database
                         if (db.studentDao().get(studentId).getEncountered()) {
                             List<BoFCourse> studentCourses = db.BoFCourseDao().getForStudent(studentId);
                             for (BoFCourse course : studentCourses) {
@@ -116,11 +118,6 @@ public class HomePageActivity extends AppCompatActivity{
                             db.BoFStudentDao().insert(ns);
                             db.studentDao().updateEncountered(true, studentId);
                         }
-
-                        // FIXME:
-                        //  Case: If the student already has the course associated with them in the
-                        //        database
-
 
                         studentId = db.BoFStudentDao().getBasedOnPrevId(studentId).getStudentId();
                         BoFCourse nc = new BoFCourse(studentId, year, quarter, cL.getCourse());
