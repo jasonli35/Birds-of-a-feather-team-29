@@ -40,14 +40,21 @@ public class AddCoursesActivity extends AppCompatActivity {
 
     public void onEnterClicked(View view) {
         TextView enteredCourseNumber = findViewById(R.id.course_number_textview);
+
         if (this.courseCounter == COURSE_COUNTER_MAX) {
-            displayTooManyCoursesWarning();
+            Utilities.showAlert(this, "Alert!", TOO_MANY_COURSES_WARNING);
             return;
-        // FIXME: could be a unit test of some sort testing whether or not the user entered a class
         } else if (enteredCourseNumber.getText().toString().equals("")) {
             Utilities.showAlert(this, WARNING, NO_COURSE_ENTERED);
             return;
+        } else if (enteredCourses.contains(enteredCourseNumber.getText().toString())) {
+            Utilities.showAlert(this, WARNING, "Course has already been entered." +
+                    " Please enter another course or click the Back button.");
+            return;
         }
+
+        // FIXME have to add test to check for "CSE CSE" or any non-valid course number
+
         displayEnteredPrevCourse(this.courseCounter);
         this.courseCounter++;
     }
@@ -62,8 +69,6 @@ public class AddCoursesActivity extends AppCompatActivity {
         for (String courses : this.enteredCourses) { set.add(courses); }
         editor.putStringSet(extras.getString(INIT_SUBJECT_KEY), set);
         editor.apply();
-
-        // FIXME:
 
         intent.putExtra("subjectKey", extras.getString(INIT_SUBJECT_KEY));
 
@@ -95,9 +100,5 @@ public class AddCoursesActivity extends AppCompatActivity {
 
     public void addToList(String courseNumber) {
         enteredCourses.add(courseNumber);
-    }
-
-    public void displayTooManyCoursesWarning() {
-        Utilities.showAlert(this, "Alert!", TOO_MANY_COURSES_WARNING);
     }
 }
