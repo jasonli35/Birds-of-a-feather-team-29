@@ -22,8 +22,9 @@ public class AddLinkActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         TextView urlView = findViewById(R.id.editTextTextPersonName);
         Intent intent = new Intent(this, PreviewPhotoActivity.class);
-        startActivity(intent);
+
         editor.putString("url", urlView.getText().toString());
         editor.apply();
+        startActivity(intent);
     }
 }

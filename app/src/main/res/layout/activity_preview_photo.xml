@@ -7,24 +7,34 @@
     tools:context=".PreviewPhotoActivity">
 
     <TextView
+        android:id="@+id/textView5"
+        android:layout_width="131dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="328dp"
+        android:text="If you see this, your URL is invalid."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="204dp"
         android:text="Preview of your headshot"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="195dp"
-        android:layout_height="175dp"
+        android:layout_width="257dp"
+        android:layout_height="206dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="244dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteX="76dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <Button
         android:id="@+id/back_button"
@@ -41,9 +51,13 @@
         android:id="@+id/confirm_button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="476dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="460dp"
+        android:onClick="previewActivityConfirmCLicked"
         android:text="Confirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="230dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

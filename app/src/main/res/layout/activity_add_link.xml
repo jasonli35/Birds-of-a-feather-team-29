@@ -35,9 +35,9 @@
         android:layout_height="167dp"
         android:layout_marginStart="44dp"
         android:layout_marginTop="273dp"
+        android:background="@android:color/darker_gray"
         android:ems="10"
-        android:background = "@android:color/darker_gray"
-        android:hint="Add photo here"
+        android:hint="Add url photo here"
         android:inputType="textPersonName"
         app:barrierMargin="8sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,4 +54,5 @@
         android:text="Continue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
