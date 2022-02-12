@@ -29,8 +29,8 @@ public abstract class AppDatabase extends RoomDatabase {
                 .build();
     }
 
-    public abstract DefaultStudentDao studentDao();
-    public abstract DefaultCourseDao courseDao();
+    public abstract DefaultStudentDao DefaultStudentDao();
+    public abstract DefaultCourseDao DefaultCourseDao();
     public abstract BoFStudentDao BoFStudentDao();
     public abstract BoFCourseDao BoFCourseDao();
     public static AppDatabase getSingletonInstance() {

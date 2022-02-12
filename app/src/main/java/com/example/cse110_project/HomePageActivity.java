@@ -12,12 +12,10 @@ import android.widget.TextView;
 
 import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.BoFCourse;
-import com.example.cse110_project.prevcourses.db.BoFCourseDao;
 import com.example.cse110_project.prevcourses.db.BoFStudent;
 import com.example.cse110_project.prevcourses.db.DefaultCourse;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -81,7 +79,7 @@ public class HomePageActivity extends AppCompatActivity{
         for (Object o : keysArr) {
             userKeySplit = ((String)o).split(",");
             userCourses = (Set<String>) userCoursesMap.get(o);
-            defaultCourseList = db.courseDao().getAll();
+            defaultCourseList = db.DefaultCourseDao().getAll();
 
             // Iterates through the course numbers entered by the user for a specific year, quarter,
             // and course
@@ -100,7 +98,7 @@ public class HomePageActivity extends AppCompatActivity{
 
                         // Checks whether or not the student already has the course associated with them
                         // in the database
-                        if (db.studentDao().get(studentId).getEncountered()) {
+                        if (db.DefaultStudentDao().get(studentId).getEncountered()) {
                             List<BoFCourse> studentCourses = db.BoFCourseDao().getForStudent(studentId);
                             for (BoFCourse course : studentCourses) {
                                 if (course.getCourse().equals(cL.getCourse())) {
@@ -113,10 +111,10 @@ public class HomePageActivity extends AppCompatActivity{
 
                         // If the student has not been added to the BoF database, then we add the
                         // student to the BoF database
-                        if (!(db.studentDao().get(studentId).getEncountered())) {
-                            BoFStudent ns = new BoFStudent(studentId, db.studentDao().get(studentId).getName());
+                        if (!(db.DefaultStudentDao().get(studentId).getEncountered())) {
+                            BoFStudent ns = new BoFStudent(studentId, db.DefaultStudentDao().get(studentId).getName());
                             db.BoFStudentDao().insert(ns);
-                            db.studentDao().updateEncountered(true, studentId);
+                            db.DefaultStudentDao().updateEncountered(true, studentId);
                         }
 
                         studentId = db.BoFStudentDao().getBasedOnPrevId(studentId).getStudentId();
