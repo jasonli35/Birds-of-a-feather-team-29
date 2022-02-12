@@ -34,6 +34,7 @@ public class AddCoursesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_courses);
+        setTitle("Birds of a Feather v0.0.1");
         displayInitPrevCourse();
     }
 
@@ -58,11 +59,12 @@ public class AddCoursesActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         Bundle extras = getIntent().getExtras();
         HashSet<String> set = new HashSet<>();
-        for (String courses : this.enteredCourses) {
-            set.add(courses);
-        }
+        for (String courses : this.enteredCourses) { set.add(courses); }
         editor.putStringSet(extras.getString(INIT_SUBJECT_KEY), set);
         editor.apply();
+
+        // FIXME:
+
         intent.putExtra("subjectKey", extras.getString(INIT_SUBJECT_KEY));
 
         startActivity(intent);

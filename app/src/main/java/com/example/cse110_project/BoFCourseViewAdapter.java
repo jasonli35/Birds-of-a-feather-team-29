@@ -25,7 +25,7 @@ public class BoFCourseViewAdapter extends RecyclerView.Adapter<BoFCourseViewAdap
     public BoFCourseViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.courses_row, parent, false);
+                .inflate(R.layout.bof_courses_row, parent, false);
 
         return new ViewHolder(view);
     }
@@ -51,7 +51,8 @@ public class BoFCourseViewAdapter extends RecyclerView.Adapter<BoFCourseViewAdap
 
         public void setCourse(BoFCourse course) {
             this.course = course;
-            this.courseTextView.setText(course.course);
+            this.courseTextView.setText(course.course + " (" + course.getQuarter() + ", " +
+                    course.getYear() + ")");
         }
     }
 }

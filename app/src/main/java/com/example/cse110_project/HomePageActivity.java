@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,6 @@ import com.example.cse110_project.prevcourses.db.BoFStudent;
 import com.example.cse110_project.prevcourses.db.DefaultCourse;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,26 +34,32 @@ public class HomePageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        setTitle("Birds of a Feather");
+        setTitle("Birds of a Feather v0.0.1");
 
         compareUserCoursesWithStudents();
 
         db = AppDatabase.singleton(getApplicationContext());
-        List<BoFStudent> students = db.newStudentDao().getAll();
+        List<BoFStudent> students = db.BoFStudentDao().getAll();
 
         studentsRecyclerView = findViewById(R.id.students_view);
 
         studentsLayoutManager = new LinearLayoutManager(this);
         studentsRecyclerView.setLayoutManager(studentsLayoutManager);
 
-        studentsViewAdapter = new BoFStudentViewAdapter(students);
+        studentsViewAdapter = new BoFStudentViewAdapter(students, db.BoFCourseDao());
         studentsRecyclerView.setAdapter(studentsViewAdapter);
     }
 
+    // FIXME: fix start/stop button
     public void onClickStart(View view) {
         TextView topLeftButton = findViewById(R.id.start_button);
         if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
         else { topLeftButton.setText("Start"); }
+    }
+
+    public void onBackButtonClicked(View view) {
+        Intent intent = new Intent(this, AddCoursesMainActivity.class);
+        startActivity(intent);
     }
 
     public void compareUserCoursesWithStudents() {
@@ -65,29 +71,22 @@ public class HomePageActivity extends AppCompatActivity{
         Set<String> userCourses;
         String[] studentCourseSplit, userKeySplit;
         String year, quarter;
+        boolean skipCourse;
         int studentId;
 
-        /*
-         * Ex. User's entered previous courses = {140, 191}
-         *
-         * Algorithm cross-checks 140 with every course in the pre-populated database.
-         * Similar logic for 191.
-         *
-         * 1) Adds Steel to NEW DefaultStudent database as a student the User shares previous courses with,
-         *    in particular 140 during a particular year and quarter. Maps 140 to Steel in NEW database.
-         * 2) Adds Aiko to NEW DefaultCourse database as a student the User shares previous courses with,
-         *    in particular 191 during a particular year and quarter. Maps 191 to Aiko in NEW database.
-         *  */
+        // Cross-checks the classes entered by the user with the students pre-populated into the
+        // database
         for (Object o : keysArr) {
             userKeySplit = ((String)o).split(",");
             userCourses = (Set<String>) userCoursesMap.get(o);
-            defaultCourseList = db.courseDao().getAll();
+            defaultCourseList = db.DefaultCourseDao().getAll();
 
-            System.out.print(userKeySplit[0] + " " + userKeySplit[1] + " " + userKeySplit[2]);
-            System.out.println();
-
+            // Iterates through the course numbers entered by the user for a specific year, quarter,
+            // and course
             for (String uC : userCourses) {
+                // Iterates through all the remaining courses in the pre-populated database
                 for (DefaultCourse cL : defaultCourseList) {
+                    skipCourse = false;
                     studentCourseSplit = cL.getCourse().split(" ");
                     year = cL.getYear();
                     quarter = cL.getQuarter();
@@ -97,33 +96,33 @@ public class HomePageActivity extends AppCompatActivity{
                             && studentCourseSplit[1].equals(uC)) {
                         studentId = cL.getStudentId();
 
-                        // If the student has not been added to the BoF database, then we add the
-                        // student to the BoF database
-                        if (!(db.studentDao().get(studentId).getEncountered())) {
-                            BoFStudent ns = new BoFStudent(studentId, db.studentDao().get(studentId).getName());
-                            db.newStudentDao().insert(ns);
-                            db.studentDao().updateEncountered(true, studentId);
+                        // Checks whether or not the student already has the course associated with them
+                        // in the database
+                        if (db.DefaultStudentDao().get(studentId).getEncountered()) {
+                            List<BoFCourse> studentCourses = db.BoFCourseDao().getForStudent(studentId);
+                            for (BoFCourse course : studentCourses) {
+                                if (course.getCourse().equals(cL.getCourse())) {
+                                    skipCourse = true;
+                                    break;
+                                }
+                            }
+                            if (skipCourse) { continue; }
                         }
 
-                        studentId = db.newStudentDao().getBasedOnPrevId(studentId).getStudentId();
+                        // If the student has not been added to the BoF database, then we add the
+                        // student to the BoF database
+                        if (!(db.DefaultStudentDao().get(studentId).getEncountered())) {
+                            BoFStudent ns = new BoFStudent(studentId, db.DefaultStudentDao().get(studentId).getName());
+                            db.BoFStudentDao().insert(ns);
+                            db.DefaultStudentDao().updateEncountered(true, studentId);
+                        }
+
+                        studentId = db.BoFStudentDao().getBasedOnPrevId(studentId).getStudentId();
                         BoFCourse nc = new BoFCourse(studentId, year, quarter, cL.getCourse());
-                        db.newCourseDao().insert(nc);
+                        db.BoFCourseDao().insert(nc);
                     }
                 }
             }
         }
-
-        // FIXME: for testing purposes
-        /*System.out.print("Number of students in new database: ");
-        List<BoFStudent> nsl = db.newStudentDao().getAll();
-        System.out.println(nsl.size());
-        for (BoFStudent ns : nsl) {
-            List<BoFCourse> ncl = db.newCourseDao().getForStudent(ns.getStudentId());
-            System.out.println("Name: " + ns.getName() + " [" + ns.getStudentId() + "] " + " [" + ns.getPrevStudentId() + "]");
-            for (BoFCourse nc : ncl) {
-                System.out.println(nc.getCourse());
-            }
-            System.out.println("---");
-        }*/
     }
 }

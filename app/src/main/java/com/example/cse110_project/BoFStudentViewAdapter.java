@@ -10,17 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cse110_project.prevcourses.db.AppDatabase;
+import com.example.cse110_project.prevcourses.db.BoFCourseDao;
 import com.example.cse110_project.prevcourses.db.BoFStudent;
+import com.example.cse110_project.utilities.BoFStudentComparator;
 
 import java.util.List;
 
 public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAdapter.ViewHolder> {
     private final List<BoFStudent> students;
+    private BoFCourseDao cd;
 
-    public BoFStudentViewAdapter(List<BoFStudent> students) {
+    public BoFStudentViewAdapter(List<BoFStudent> students, BoFCourseDao cd) {
         super();
         this.students = students;
+        this.cd = cd;
+        students.sort(new BoFStudentComparator(cd));
     }
 
     @NonNull
@@ -28,9 +32,9 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
     public BoFStudentViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.student_row, parent, false);
+                .inflate(R.layout.bof_student_row, parent, false);
 
-        return new ViewHolder(view);
+        return new ViewHolder(view, cd);
     }
 
     @Override
@@ -47,17 +51,22 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
         private final TextView studentNameView;
+        private final TextView numOfSharedCoursesView;
         private BoFStudent student;
+        private BoFCourseDao cd;
 
-        ViewHolder(View itemView) {
+        ViewHolder(View itemView, BoFCourseDao cd) {
             super(itemView);
             this.studentNameView = itemView.findViewById(R.id.student_row_name);
+            this.cd = cd;
+            this.numOfSharedCoursesView = itemView.findViewById(R.id.num_shared_courses_textview);
             itemView.setOnClickListener(this);
         }
 
         public void setStudent(BoFStudent student) {
             this.student = student;
             this.studentNameView.setText(student.getName());
+            this.numOfSharedCoursesView.setText(Integer.toString(cd.getForStudent(student.getStudentId()).size()));
         }
 
         @Override
