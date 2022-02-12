@@ -55,12 +55,12 @@ public class MainActivity extends AppCompatActivity {
         };
 
         AppDatabase db = AppDatabase.singleton(getApplicationContext());
-        db.studentDao().delete();
-        db.courseDao().delete();
+        db.DefaultStudentDao().delete();
+        db.DefaultCourseDao().delete();
 
-        for (DefaultStudent dS : defaultStudentList) { db.studentDao().insert(dS); }
+        for (DefaultStudent dS : defaultStudentList) { db.DefaultStudentDao().insert(dS); }
 
-        List<DefaultStudent> defStudentsList = db.studentDao().getAll();
+        List<DefaultStudent> defStudentsList = db.DefaultStudentDao().getAll();
 
         DefaultCourse[] defaultCourseList = {
                 new DefaultCourse(defStudentsList.get(0).getStudentId(), "2017",
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         "Fall","CSE 167")
         };
 
-        for (DefaultCourse defaultCourse : defaultCourseList) { db.courseDao().insert(defaultCourse); }
+        for (DefaultCourse defaultCourse : defaultCourseList) { db.DefaultCourseDao().insert(defaultCourse); }
     }
 
     private void clearUserClassInfo() {
