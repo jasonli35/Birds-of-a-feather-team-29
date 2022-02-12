@@ -8,20 +8,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cse110_project.prevcourses.db.AppDatabase;
+import com.example.cse110_project.prevcourses.db.BoFCourseDao;
 import com.example.cse110_project.prevcourses.db.BoFStudent;
+import com.example.cse110_project.utilities.BoFStudentComparator;
 
 import java.util.List;
 
 public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAdapter.ViewHolder> {
     private final List<BoFStudent> students;
+    private BoFCourseDao cd;
 
-    public BoFStudentViewAdapter(List<BoFStudent> students) {
+    public BoFStudentViewAdapter(List<BoFStudent> students, BoFCourseDao cd) {
         super();
         this.students = students;
+        this.cd = cd;
+        students.sort(new BoFStudentComparator(cd));
     }
 
     @NonNull
@@ -29,7 +32,7 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
     public BoFStudentViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.student_row, parent, false);
+                .inflate(R.layout.bof_student_row, parent, false);
 
         return new ViewHolder(view);
     }

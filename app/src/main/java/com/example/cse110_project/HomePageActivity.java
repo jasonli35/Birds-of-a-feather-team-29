@@ -40,14 +40,14 @@ public class HomePageActivity extends AppCompatActivity{
         compareUserCoursesWithStudents();
 
         db = AppDatabase.singleton(getApplicationContext());
-        List<BoFStudent> students = db.newStudentDao().getAll();
+        List<BoFStudent> students = db.BoFStudentDao().getAll();
 
         studentsRecyclerView = findViewById(R.id.students_view);
 
         studentsLayoutManager = new LinearLayoutManager(this);
         studentsRecyclerView.setLayoutManager(studentsLayoutManager);
 
-        studentsViewAdapter = new BoFStudentViewAdapter(students);
+        studentsViewAdapter = new BoFStudentViewAdapter(students, db.BoFCourseDao());
         studentsRecyclerView.setAdapter(studentsViewAdapter);
     }
 
@@ -90,9 +90,6 @@ public class HomePageActivity extends AppCompatActivity{
             userCourses = (Set<String>) userCoursesMap.get(o);
             defaultCourseList = db.courseDao().getAll();
 
-            System.out.print(userKeySplit[0] + " " + userKeySplit[1] + " " + userKeySplit[2]);
-            System.out.println();
-
             for (String uC : userCourses) {
                 for (DefaultCourse cL : defaultCourseList) {
                     studentCourseSplit = cL.getCourse().split(" ");
@@ -108,29 +105,16 @@ public class HomePageActivity extends AppCompatActivity{
                         // student to the BoF database
                         if (!(db.studentDao().get(studentId).getEncountered())) {
                             BoFStudent ns = new BoFStudent(studentId, db.studentDao().get(studentId).getName());
-                            db.newStudentDao().insert(ns);
+                            db.BoFStudentDao().insert(ns);
                             db.studentDao().updateEncountered(true, studentId);
                         }
 
-                        studentId = db.newStudentDao().getBasedOnPrevId(studentId).getStudentId();
+                        studentId = db.BoFStudentDao().getBasedOnPrevId(studentId).getStudentId();
                         BoFCourse nc = new BoFCourse(studentId, year, quarter, cL.getCourse());
-                        db.newCourseDao().insert(nc);
+                        db.BoFCourseDao().insert(nc);
                     }
                 }
             }
         }
-
-        // FIXME: for testing purposes
-        /*System.out.print("Number of students in new database: ");
-        List<BoFStudent> nsl = db.newStudentDao().getAll();
-        System.out.println(nsl.size());
-        for (BoFStudent ns : nsl) {
-            List<BoFCourse> ncl = db.newCourseDao().getForStudent(ns.getStudentId());
-            System.out.println("Name: " + ns.getName() + " [" + ns.getStudentId() + "] " + " [" + ns.getPrevStudentId() + "]");
-            for (BoFCourse nc : ncl) {
-                System.out.println(nc.getCourse());
-            }
-            System.out.println("---");
-        }*/
     }
 }
