@@ -10,7 +10,7 @@
     <string name="quarter">Quarter</string>
     <string name="back">Back</string>
     <string name="start">start</string>
-    <string name="mock_functionality">Mock Functionality</string>
+    <string name="mock_nearby_messages">Mock Nearby Messages</string>
     <string name="start_app">Start App</string>
 
     <string-array name="academic_years">
