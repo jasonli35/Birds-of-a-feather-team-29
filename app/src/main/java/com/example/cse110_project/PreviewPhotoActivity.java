@@ -28,7 +28,7 @@ public class PreviewPhotoActivity extends AppCompatActivity {
     }
 
     public void onConfirmClicked(View view) {
-        //This is the sharePreference that should be use in compare method
+        // This is the sharePreference that should be use in compare method
         SharedPreferences newPreferences = getSharedPreferences("NameWithURL",MODE_PRIVATE);
         SharedPreferences.Editor newEditor = newPreferences.edit();
 
