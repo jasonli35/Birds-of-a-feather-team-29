@@ -47,10 +47,6 @@ public class AddCoursesActivity extends AppCompatActivity {
         } else if (enteredCourses.contains(enteredCourseNumber.getText().toString())) {
             Utilities.showAlert(this, Constants.WARNING, Constants.DUPLICATE_COURSE);
             return;
-        } else if (enteredCourses.contains(enteredCourseNumber.getText().toString())) {
-            Utilities.showAlert(this, WARNING, "Course has already been entered." +
-                    " Please enter another course or click the Back button.");
-            return;
         }
 
         displayEnteredPrevCourse(this.courseCounter);
