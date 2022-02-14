@@ -14,6 +14,8 @@ import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.BoFCourse;
 import com.example.cse110_project.prevcourses.db.BoFStudent;
 import com.example.cse110_project.prevcourses.db.DefaultCourse;
+import com.example.cse110_project.utilities.Constants;
+import com.example.cse110_project.utilities.SharedPreferencesDatabase;
 
 
 import java.util.List;
@@ -23,12 +25,9 @@ import java.util.Set;
 
 public class HomePageActivity extends AppCompatActivity{
     private AppDatabase db;
-
     protected RecyclerView studentsRecyclerView;
     protected RecyclerView.LayoutManager studentsLayoutManager;
     protected BoFStudentViewAdapter studentsViewAdapter;
-
-    private static final String SHARED_PREF_MAIN_USER_CLASS_INFO_DB = "mainUserClassInfo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,8 @@ public class HomePageActivity extends AppCompatActivity{
 
     public void compareUserCoursesWithStudents() {
         db = AppDatabase.singleton(getApplicationContext());
-        SharedPreferences sp = getSharedPreferences(SHARED_PREF_MAIN_USER_CLASS_INFO_DB, MODE_PRIVATE);
+        SharedPreferences sp = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
+                Constants.MAIN_USER_COURSE_DB);
         Map<String, ?> userCoursesMap = sp.getAll();
         Object[] keysArr = userCoursesMap.keySet().toArray();
         List<DefaultCourse> defaultCourseList;

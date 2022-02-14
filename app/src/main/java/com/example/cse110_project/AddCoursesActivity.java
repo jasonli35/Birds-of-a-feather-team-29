@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.cse110_project.utilities.Constants;
+import com.example.cse110_project.utilities.SharedPreferencesDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
@@ -62,8 +65,9 @@ public class AddCoursesActivity extends AppCompatActivity {
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, AddCoursesMainActivity.class);
 
-        SharedPreferences preferences = getSharedPreferences(SHARED_PREF_CURR_ENTERED_CLASSES_DB, MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences pref = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
+                Constants.CURR_ENTERED_COURSES_DB);
+        SharedPreferences.Editor editor = pref.edit();
         Bundle extras = getIntent().getExtras();
         HashSet<String> set = new HashSet<>();
         for (String courses : this.enteredCourses) { set.add(courses); }

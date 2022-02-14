@@ -25,6 +25,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.cse110_project.utilities.Constants;
+import com.example.cse110_project.utilities.SharedPreferencesDatabase;
+
 import java.util.HashSet;
 
 public class AddCoursesMainActivity extends AppCompatActivity {
@@ -65,12 +68,12 @@ public class AddCoursesMainActivity extends AppCompatActivity {
             return;
         }
 
-        SharedPreferences preferences = getSharedPreferencesDatabase(SHARED_PREF_CURR_ENTERED_CLASSES_DB);
-        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences pref = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
+                Constants.CURR_ENTERED_COURSES_DB);
+        SharedPreferences.Editor editor = pref.edit();
         Spinner s1 = findViewById(R.id.year_dropdown_container);
         Spinner s2 = findViewById(R.id.quarter_dropdown_container);
 
-        // Clears entries from the previous page (AddCoursesActivity)
         editor.clear();
         editor.putString(YEAR_KEY, s1.getSelectedItem().toString());
         editor.putString(QTR_KEY, s2.getSelectedItem().toString());
@@ -91,9 +94,10 @@ public class AddCoursesMainActivity extends AppCompatActivity {
      *         user class info" database
      * */
     public boolean onClickDone(View view) {
-        SharedPreferences mainUserClassInfoSP = getSharedPreferencesDatabase(SHARED_PREF_MAIN_USER_CLASS_INFO_DB);
+        SharedPreferences userCourseInfo = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
+                Constants.MAIN_USER_COURSE_DB);
 
-        if (mainUserClassInfoSP.getAll().isEmpty()) {
+        if (userCourseInfo.getAll().isEmpty()) {
             Utilities.showAlert(this, WARNING, NO_CLASSES_ENTERED_WARNING);
             return false;
         }
@@ -119,28 +123,28 @@ public class AddCoursesMainActivity extends AppCompatActivity {
         // Getting the courses entered by the user from the "current entered classes" database
         // in the form of a set
         String subjectKey = extras.getString(SUBJECT_KEY);
-        SharedPreferences currEnteredClassesSP= getSharedPreferencesDatabase(SHARED_PREF_CURR_ENTERED_CLASSES_DB);
-        HashSet<String> set = (HashSet<String>) currEnteredClassesSP.getStringSet(subjectKey, null);
+        SharedPreferences curr = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
+                Constants.CURR_ENTERED_COURSES_DB);
+        HashSet<String> set = (HashSet<String>) curr.getStringSet(subjectKey, null);
 
         if (set == null) { return false; }
 
-        SharedPreferences mainUserClassInfoSP = getSharedPreferencesDatabase(SHARED_PREF_MAIN_USER_CLASS_INFO_DB);
-        SharedPreferences.Editor mainEditor = mainUserClassInfoSP.edit();
+        SharedPreferences userCourseInfo = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
+                Constants.MAIN_USER_COURSE_DB);
+        SharedPreferences.Editor mainEditor = userCourseInfo.edit();
 
         // Adding the set of courses received above into a "main user class info" database as a value
         // mapped to a key representing the year, quarter, and subject
-        String completeKey = currEnteredClassesSP.getString(YEAR_KEY, null)
-                + "," + currEnteredClassesSP.getString(QTR_KEY, null) + "," + subjectKey;
+        String completeKey = curr.getString(YEAR_KEY, null)
+                + "," + curr.getString(QTR_KEY, null) + "," + subjectKey;
 
-        // FIXME:
-        if (mainUserClassInfoSP.contains(completeKey)) {
-            HashSet<String> set2 = (HashSet<String>) mainUserClassInfoSP.getStringSet(completeKey, null);
+        if (userCourseInfo.contains(completeKey)) {
+            HashSet<String> set2 = (HashSet<String>) userCourseInfo.getStringSet(completeKey, null);
             set.addAll(set2);
         }
 
         mainEditor.putStringSet(completeKey, set);
         mainEditor.apply();
-
 
         return true;
     }
@@ -151,7 +155,8 @@ public class AddCoursesMainActivity extends AppCompatActivity {
      * */
     public void disableDoneClickable() {
         Button doneButton = findViewById(R.id.done_button);
-        doneButton.setClickable(!getSharedPreferencesDatabase(SHARED_PREF_MAIN_USER_CLASS_INFO_DB).getAll().isEmpty());
+        doneButton.setClickable(!SharedPreferencesDatabase.getDatabase(getApplicationContext(),
+                Constants.MAIN_USER_COURSE_DB).getAll().isEmpty());
     }
 
     /**
@@ -176,14 +181,14 @@ public class AddCoursesMainActivity extends AppCompatActivity {
         quarterDropdown.setAdapter(adapter);
     }
 
-    /**
-     * Gets a SharedPreferences database based on the given string
-     *
-     * @return a SharedPreferences object representing the database given
-     * */
-    public SharedPreferences getSharedPreferencesDatabase(String database) {
-        return getSharedPreferences(database, MODE_PRIVATE);
-    }
+//    /**
+//     * Gets a SharedPreferences database based on the given string
+//     *
+//     * @return a SharedPreferences object representing the database given
+//     * */
+//    public SharedPreferences getSharedPreferencesDatabase(String database) {
+//        return getSharedPreferences(database, MODE_PRIVATE);
+//    }
 
     /**
      * Gets the extras from the passed Intent
