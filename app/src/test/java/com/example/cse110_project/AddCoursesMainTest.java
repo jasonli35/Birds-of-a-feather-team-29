@@ -29,22 +29,6 @@ public class AddCoursesMainTest {
         });
     }
 
-    /**
-     * Unit test of AddCoursesMainActivity:disableDoneClickable()
-     * &
-     * BDD Scenario Acceptance Test (Story Test)
-     *     - Tests Scenario 2: Premise is that the user hasn't entered any courses into the database
-     * */
-    @Test
-    public void test_Func_disableDoneClickable() {
-        ActivityScenario<AddCoursesMainActivity> scenario = rule.getScenario();
-        scenario.moveToState(Lifecycle.State.CREATED);
-        scenario.onActivity(activity -> {
-            Button doneButton = activity.findViewById(R.id.done_button);
-            assert(!doneButton.isClickable());
-        });
-    }
-
     @Test
     public void test_Subject_TextView_Is_Initially_Empty() {
         ActivityScenario<AddCoursesMainActivity> scenario = rule.getScenario();
