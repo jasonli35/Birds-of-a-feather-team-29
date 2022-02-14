@@ -24,6 +24,7 @@ import android.view.View;
 import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.DefaultCourse;
 import com.example.cse110_project.prevcourses.db.DefaultStudent;
+import com.example.cse110_project.utilities.PrepopulateDatabase;
 
 import java.util.List;
 
@@ -35,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Birds of a Feather v0.0.1");
 
+        PrepopulateDatabase.populateDefaultDatabase(AppDatabase.singleton(getApplicationContext()));
+
         clearUserClassInfo();
-        populateDatabase();
+//        populateDatabase();
     }
 
     public void onMockFunctionalityClicked(View view) {}
@@ -47,58 +50,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // FIXME: temporary -- use a separate Class instead?
-    private void populateDatabase() {
-        DefaultStudent[] defaultStudentList = {
-                new DefaultStudent("Steel"),
-                new DefaultStudent("Sandy"),
-                new DefaultStudent("Aiko")
-        };
-
-        AppDatabase db = AppDatabase.singleton(getApplicationContext());
-        db.DefaultStudentDao().delete();
-        db.DefaultCourseDao().delete();
-
-        for (DefaultStudent dS : defaultStudentList) { db.DefaultStudentDao().insert(dS); }
-
-        List<DefaultStudent> defStudentsList = db.DefaultStudentDao().getAll();
-
-        DefaultCourse[] defaultCourseList = {
-                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2017",
-                        "Fall", "CSE 11"),
-                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2017",
-                        "Fall","CSE 12"),
-                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2017",
-                        "Fall","CSE 21"),
-                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2019",
-                        "Spring","CSE 100"),
-                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2019",
-                        "Spring","CSE 140"),
-                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2019",
-                        "Spring","CSE 105"),
-
-                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2018",
-                        "Winter","CSE 11"),
-                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2018",
-                        "Winter","CSE 12"),
-                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2018",
-                        "Winter","CSE 21"),
-                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2019",
-                        "Fall", "CSE 100"),
-
-                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2018",
-                        "Spring","CSE 15L"),
-                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
-                        "Summer Session I","CSE 191"),
-                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
-                        "Fall","CSE 142"),
-                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
-                        "Fall","CSE 112"),
-                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
-                        "Fall","CSE 167")
-        };
-
-        for (DefaultCourse defaultCourse : defaultCourseList) { db.DefaultCourseDao().insert(defaultCourse); }
-    }
+//    private void populateDatabase() {
+//        DefaultStudent[] defaultStudentList = {
+//                new DefaultStudent("Steel"),
+//                new DefaultStudent("Sandy"),
+//                new DefaultStudent("Aiko")
+//        };
+//
+//        AppDatabase db = AppDatabase.singleton(getApplicationContext());
+//        db.DefaultStudentDao().delete();
+//        db.DefaultCourseDao().delete();
+//
+//        for (DefaultStudent dS : defaultStudentList) { db.DefaultStudentDao().insert(dS); }
+//
+//        List<DefaultStudent> defStudentsList = db.DefaultStudentDao().getAll();
+//
+//        DefaultCourse[] defaultCourseList = {
+//                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2017",
+//                        "Fall", "CSE 11"),
+//                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2017",
+//                        "Fall","CSE 12"),
+//                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2017",
+//                        "Fall","CSE 21"),
+//                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2019",
+//                        "Spring","CSE 100"),
+//                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2019",
+//                        "Spring","CSE 140"),
+//                new DefaultCourse(defStudentsList.get(0).getStudentId(), "2019",
+//                        "Spring","CSE 105"),
+//
+//                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2018",
+//                        "Winter","CSE 11"),
+//                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2018",
+//                        "Winter","CSE 12"),
+//                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2018",
+//                        "Winter","CSE 21"),
+//                new DefaultCourse(defStudentsList.get(1).getStudentId(), "2019",
+//                        "Fall", "CSE 100"),
+//
+//                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2018",
+//                        "Spring","CSE 15L"),
+//                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
+//                        "Summer Session I","CSE 191"),
+//                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
+//                        "Fall","CSE 142"),
+//                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
+//                        "Fall","CSE 112"),
+//                new DefaultCourse(defStudentsList.get(2).getStudentId(), "2020",
+//                        "Fall","CSE 167")
+//        };
+//
+//        for (DefaultCourse defaultCourse : defaultCourseList) { db.DefaultCourseDao().insert(defaultCourse); }
+//    }
 
     private void clearUserClassInfo() {
         SharedPreferences currEnteredClassesSP = getSharedPreferences("currEnteredClasses", MODE_PRIVATE);
