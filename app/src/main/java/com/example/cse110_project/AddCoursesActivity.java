@@ -66,7 +66,6 @@ public class AddCoursesActivity extends AppCompatActivity {
 
         editor.putStringSet(extras.getString(Constants.INIT_SUBJECT_KEY), set);
         editor.apply();
-
         intent.putExtra(Constants.SUBJECT_KEY, extras.getString(Constants.INIT_SUBJECT_KEY));
 
         startActivity(intent);
