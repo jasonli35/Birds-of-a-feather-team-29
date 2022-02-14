@@ -18,7 +18,6 @@ public abstract class AppDatabase extends RoomDatabase {
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build();
-
         }
         return singletonInstance;
     }
