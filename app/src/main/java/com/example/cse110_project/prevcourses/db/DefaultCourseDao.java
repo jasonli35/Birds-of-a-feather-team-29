@@ -1,3 +1,13 @@
+/*
+ * Source(s):
+ *
+ * For deleting database content:
+ * 1) Title: Room persistence library. Delete all
+ *    Link: https://stackoverflow.com/questions/44244508/room-persistance-library-delete-all
+ *    Date: 2/9/22 - 2/11/22
+ *    Source used for...: Understanding how to delete data in the Room database
+ * */
+
 package com.example.cse110_project.prevcourses.db;
 
 import androidx.room.Dao;
@@ -32,10 +42,3 @@ public interface DefaultCourseDao {
     @Delete
     void delete(DefaultCourse defaultCourse);
 }
-
-/**
- * Source:
- *
- * For deleting database content:
- * https://stackoverflow.com/questions/44244508/room-persistance-library-delete-all
- * */

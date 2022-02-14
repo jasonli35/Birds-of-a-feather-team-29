@@ -33,34 +33,29 @@ public class HomePageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        setTitle("Birds of a Feather v0.0.1");
+        setTitle(Constants.APP_VERSION);
 
         compareUserCoursesWithStudents();
-
-        db = AppDatabase.singleton(getApplicationContext());
-        List<BoFStudent> students = db.BoFStudentDao().getAll();
-
-        studentsRecyclerView = findViewById(R.id.students_view);
-
-        studentsLayoutManager = new LinearLayoutManager(this);
-        studentsRecyclerView.setLayoutManager(studentsLayoutManager);
-
-        studentsViewAdapter = new BoFStudentViewAdapter(students, db.BoFCourseDao());
-        studentsRecyclerView.setAdapter(studentsViewAdapter);
+        displayBirdsOfAFeatherList();
     }
 
-    // FIXME: fix start/stop button
-    public void onClickStart(View view) {
+    public void onStartClicked(View view) {
         TextView topLeftButton = findViewById(R.id.start_button);
-        if (topLeftButton.getText().toString().equals("Start")) { topLeftButton.setText("Stop"); }
-        else { topLeftButton.setText("Start"); }
+        String currText = topLeftButton.getText().toString();
+
+        if (currText.equals(Constants.START)) { topLeftButton.setText(Constants.STOP); }
+        else { topLeftButton.setText(Constants.START); }
     }
 
-    public void onBackButtonClicked(View view) {
+    public void onBackClicked(View view) {
         Intent intent = new Intent(this, AddCoursesMainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Adds the students and courses that the User has shared a class with to the database by
+     * cross-checking the User's courses with all the pre-populated courses in the database
+     * */
     public void compareUserCoursesWithStudents() {
         db = AppDatabase.singleton(getApplicationContext());
         SharedPreferences sp = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
@@ -77,7 +72,7 @@ public class HomePageActivity extends AppCompatActivity{
         // Cross-checks the classes entered by the user with the students pre-populated into the
         // database
         for (Object o : keysArr) {
-            userKeySplit = ((String)o).split(",");
+            userKeySplit = ((String)o).split(Constants.COMMA);
             userCourses = (Set<String>) userCoursesMap.get(o);
             defaultCourseList = db.DefaultCourseDao().getAll();
 
@@ -87,7 +82,7 @@ public class HomePageActivity extends AppCompatActivity{
                 // Iterates through all the remaining courses in the pre-populated database
                 for (DefaultCourse cL : defaultCourseList) {
                     skipCourse = false;
-                    studentCourseSplit = cL.getCourse().split(" ");
+                    studentCourseSplit = cL.getCourse().split(Constants.SPACE);
                     year = cL.getYear();
                     quarter = cL.getQuarter();
 
@@ -124,5 +119,18 @@ public class HomePageActivity extends AppCompatActivity{
                 }
             }
         }
+    }
+
+    public void displayBirdsOfAFeatherList() {
+        db = AppDatabase.singleton(getApplicationContext());
+        List<BoFStudent> students = db.BoFStudentDao().getAll();
+
+        studentsRecyclerView = findViewById(R.id.students_view);
+
+        studentsLayoutManager = new LinearLayoutManager(this);
+        studentsRecyclerView.setLayoutManager(studentsLayoutManager);
+
+        studentsViewAdapter = new BoFStudentViewAdapter(students, db.BoFCourseDao());
+        studentsRecyclerView.setAdapter(studentsViewAdapter);
     }
 }

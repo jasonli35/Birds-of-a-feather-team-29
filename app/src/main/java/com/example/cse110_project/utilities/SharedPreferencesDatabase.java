@@ -18,11 +18,6 @@ public class SharedPreferencesDatabase {
         mainUserClassInfoEditor.apply();
     }
 
-    /**
-     * Gets a SharedPreferences database based on the given string
-     *
-     * @return a SharedPreferences object representing the database given
-     * */
     public static SharedPreferences getDatabase(Context context, String database) {
         return context.getSharedPreferences(database, Context.MODE_PRIVATE);
     }

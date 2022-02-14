@@ -24,6 +24,7 @@ import android.view.View;
 import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.DefaultCourse;
 import com.example.cse110_project.prevcourses.db.DefaultStudent;
+import com.example.cse110_project.utilities.Constants;
 import com.example.cse110_project.utilities.PrepopulateDatabase;
 import com.example.cse110_project.utilities.SharedPreferencesDatabase;
 
@@ -35,13 +36,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Birds of a Feather v0.0.1");
+        setTitle(Constants.APP_VERSION);
 
         SharedPreferencesDatabase.clearCurrEnteredCoursesDatabase(getApplicationContext());
         PrepopulateDatabase.populateDefaultDatabase(AppDatabase.singleton(getApplicationContext()));
-
-//        clearUserClassInfo();
-//        populateDatabase();
     }
 
     public void onMockFunctionalityClicked(View view) {}

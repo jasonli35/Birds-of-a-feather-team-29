@@ -1,7 +1,5 @@
 package com.example.cse110_project.utilities;
 
-import android.content.Context;
-
 import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.DefaultCourse;
 import com.example.cse110_project.prevcourses.db.DefaultStudent;

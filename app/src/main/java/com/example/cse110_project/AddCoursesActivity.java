@@ -17,15 +17,6 @@ import java.util.HashSet;
 
 public class AddCoursesActivity extends AppCompatActivity {
     /** Constants */
-    private final String TOO_MANY_COURSES_WARNING = "Exceeding maximum of 6 courses per quarter. " +
-            "Please press Back to continue.";
-    private final String NO_COURSE_ENTERED = "Please enter a course number. If finished, press Back" +
-            " to continue.";
-    private final String SPACE = " ";
-    private static final String SHARED_PREF_CURR_ENTERED_CLASSES_DB = "currEnteredClasses";
-    private static final String INIT_SUBJECT_KEY = "initSubject";
-    private static final String INIT_COURSE_NUMBER = "initCourseNumber";
-    private static final String WARNING = "Warning!";
     private final int COURSE_COUNTER_MAX = 5;
     private final int LIST_SIZE = 6;
 
@@ -37,26 +28,26 @@ public class AddCoursesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_courses);
-        setTitle("Birds of a Feather v0.0.1");
+        setTitle(Constants.APP_VERSION);
+
         displayInitPrevCourse();
     }
 
     public void onEnterClicked(View view) {
         TextView enteredCourseNumber = findViewById(R.id.course_number_textview);
 
+        // Checks if 1) user has entered > 6 courses, 2) no course was entered, and 3) course has
+        // already been added to database
         if (this.courseCounter == COURSE_COUNTER_MAX) {
-            Utilities.showAlert(this, "Alert!", TOO_MANY_COURSES_WARNING);
+            Utilities.showAlert(this, Constants.ALERT, Constants.TOO_MANY_COURSES_WARNING);
             return;
         } else if (enteredCourseNumber.getText().toString().equals("")) {
-            Utilities.showAlert(this, WARNING, NO_COURSE_ENTERED);
+            Utilities.showAlert(this, Constants.WARNING, Constants.NO_COURSE_ENTERED);
             return;
         } else if (enteredCourses.contains(enteredCourseNumber.getText().toString())) {
-            Utilities.showAlert(this, WARNING, "Course has already been entered." +
-                    " Please enter another course or click the Back button.");
+            Utilities.showAlert(this, Constants.WARNING, Constants.DUPLICATE_COURSE);
             return;
         }
-
-        // FIXME have to add test to check for "CSE CSE" or any non-valid course number
 
         displayEnteredPrevCourse(this.courseCounter);
         this.courseCounter++;
@@ -70,22 +61,28 @@ public class AddCoursesActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = pref.edit();
         Bundle extras = getIntent().getExtras();
         HashSet<String> set = new HashSet<>();
+
         for (String courses : this.enteredCourses) { set.add(courses); }
-        editor.putStringSet(extras.getString(INIT_SUBJECT_KEY), set);
+
+        editor.putStringSet(extras.getString(Constants.INIT_SUBJECT_KEY), set);
         editor.apply();
 
-        intent.putExtra("subjectKey", extras.getString(INIT_SUBJECT_KEY));
+        intent.putExtra(Constants.SUBJECT_KEY, extras.getString(Constants.INIT_SUBJECT_KEY));
 
         startActivity(intent);
     }
 
+    /**
+     * Displays the course the user entered this page with
+     * */
     public void displayInitPrevCourse() {
         TextView firstCourse = findViewById(R.id.prev_course_one_textview);
         Bundle extras = getIntent().getExtras();
-        String fullCourseName = extras.getString(INIT_SUBJECT_KEY)
-                + SPACE + extras.getString(INIT_COURSE_NUMBER);
+        String fullCourseName = extras.getString(Constants.INIT_SUBJECT_KEY)
+                + Constants.SPACE + extras.getString(Constants.INIT_COURSE_NUMBER);
+
         firstCourse.setText(fullCourseName);
-        addToList(extras.getString(INIT_COURSE_NUMBER));
+        addToList(extras.getString(Constants.INIT_COURSE_NUMBER));
     }
 
     public void displayEnteredPrevCourse(int courseIndex) {
@@ -96,8 +93,10 @@ public class AddCoursesActivity extends AppCompatActivity {
                 findViewById(R.id.prev_course_six_textview)};
         TextView courseNumber = findViewById(R.id.course_number_textview);
         Bundle extras = getIntent().getExtras();
-        String fullCourseName = extras.getString(INIT_SUBJECT_KEY) + SPACE
+        String fullCourseName = extras.getString(Constants.INIT_SUBJECT_KEY) + Constants.SPACE
                 + courseNumber.getText().toString();
+
+        // Displays the entered course on a TextView that has not been set with a text
         courseLayouts[courseIndex].setText(fullCourseName);
         addToList(courseNumber.getText().toString());
     }

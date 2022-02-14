@@ -60,7 +60,7 @@ public class StudentDetailTest {
         ActivityScenario<StudentDetailActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
-            activity.beginCourseView(1);
+            activity.displaySharedCourses(1);
             assert(activity.getNumOfCoursesDisplayed() == 1);
         });
     }
@@ -78,7 +78,7 @@ public class StudentDetailTest {
         ActivityScenario<StudentDetailActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.CREATED);
         scenario.onActivity(activity -> {
-            activity.beginCourseView(1);
+            activity.displaySharedCourses(1);
             assert(activity.getNumOfCoursesDisplayed() == 5);
         });
     }

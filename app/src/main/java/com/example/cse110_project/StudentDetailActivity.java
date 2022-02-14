@@ -14,6 +14,7 @@ import com.example.cse110_project.prevcourses.db.AppDatabase;
 import com.example.cse110_project.prevcourses.db.BoFCourse;
 import com.example.cse110_project.prevcourses.db.BoFStudent;
 import com.example.cse110_project.prevcourses.db.DefaultStudent;
+import com.example.cse110_project.utilities.Constants;
 
 public class StudentDetailActivity extends AppCompatActivity {
     private AppDatabase db;
@@ -27,16 +28,16 @@ public class StudentDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_detail);
 
-        beginCourseView(0);
+        displaySharedCourses(0);
     }
 
     public void onGoBackClicked(View view) {
         finish();
     }
 
-    public void beginCourseView(int testInt) {
+    public void displaySharedCourses(int testInt) {
         Intent intent = getIntent();
-        int studentId = intent.getIntExtra("bof_student_id", -1);
+        int studentId = intent.getIntExtra(Constants.BOF_STUDENT_ID, -1);
 
         if ((studentId == -1) && (testInt == 0)) { return; }
         else if ((studentId == -1) && (testInt == 1)) { studentId = 1; }
