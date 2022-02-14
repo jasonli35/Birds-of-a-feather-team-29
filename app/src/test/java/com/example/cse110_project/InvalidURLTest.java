@@ -22,13 +22,13 @@ import org.junit.runner.RunWith;
 public class InvalidURLTest {
     @Rule
     public ActivityScenarioRule<AddLinkActivity> rule = new ActivityScenarioRule<AddLinkActivity>(AddLinkActivity.class);
-   // public ActivityScenarioRule<PreviewPhotoActivity> rule2 = new ActivityScenarioRule<PreviewPhotoActivity>(PreviewPhotoActivity.class);
 
     @Test
     public void test_invalidURL() {
         ActivityScenario<AddLinkActivity> scenario = rule.getScenario();
         scenario.moveToState(Lifecycle.State.STARTED);
 
+        // ignore comment
         scenario.onActivity(activity -> {
             TextView textView = activity.findViewById(R.id.editTextTextPersonName);
             textView.setText("");
@@ -36,12 +36,8 @@ public class InvalidURLTest {
 
             button.performClick();
             assertEquals(Lifecycle.State.STARTED,scenario.getState());
-//
-
 
         });
-
-
     }
 
 }
