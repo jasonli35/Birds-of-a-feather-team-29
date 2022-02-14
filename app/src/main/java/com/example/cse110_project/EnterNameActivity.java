@@ -30,10 +30,12 @@ public class EnterNameActivity extends AppCompatActivity {
             SharedPreferences preferences = getSharedPreferences("USER_INFO", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("userFirstName", name);
+            Intent intent = new Intent(this, AddLinkActivity.class);
+            startActivity(intent);
         }
 
-        Intent intent = new Intent(this, AddCoursesMainActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, AddCoursesMainActivity.class);
+        //startActivity(intent);
     }
 
     public static boolean isValidName(String name){

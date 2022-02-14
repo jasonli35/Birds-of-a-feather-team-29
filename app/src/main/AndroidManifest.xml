@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cse110_project">
+    <uses-permission
+        android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,9 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CSE110Project">
+        <activity
+            android:name=".PreviewPhotoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddLinkActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.nearby.messages.API_KEY"
-            android:value="AIzaSyBnA4XigvXrpLxxqx5Lpw-T73CBC0_OQXw"/>
+            android:value="AIzaSyBnA4XigvXrpLxxqx5Lpw-T73CBC0_OQXw" />
+
         <activity
             android:name=".StudentDetailActivity"
             android:exported="false" />
@@ -36,6 +46,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>
