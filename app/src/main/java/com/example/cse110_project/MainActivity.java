@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         PrepopulateDatabase.populateDefaultDatabase(AppDatabase.singleton(getApplicationContext()));
     }
 
-    public void onMockFunctionalityClicked(View view) {}
-
     public void onStartAppClicked(View view) {
         Intent intent = new Intent(this, EnterNameActivity.class);
         startActivity(intent);

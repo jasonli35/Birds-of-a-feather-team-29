@@ -43,7 +43,7 @@ public class AddCoursesMainActivity extends AppCompatActivity {
         initQuarterDropdown();
     }
 
-    public void onClickEnter(View view) {
+    public void onEnterClicked(View view) {
         TextView subject = findViewById(R.id.enter_subject_textview);
         TextView courseNumber = findViewById(R.id.enter_course_textview);
 
@@ -76,7 +76,7 @@ public class AddCoursesMainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public boolean onClickDone(View view) {
+    public boolean onDoneClicked(View view) {
         SharedPreferences userCourseInfo = SharedPreferencesDatabase.getDatabase(getApplicationContext(),
                 Constants.MAIN_USER_COURSE_DB);
 

@@ -35,6 +35,7 @@ public class HomePageActivity extends AppCompatActivity{
         setContentView(R.layout.activity_home_page);
         setTitle(Constants.APP_VERSION);
 
+
         compareUserCoursesWithStudents();
         displayBirdsOfAFeatherList();
     }
@@ -49,6 +50,11 @@ public class HomePageActivity extends AppCompatActivity{
 
     public void onBackClicked(View view) {
         Intent intent = new Intent(this, AddCoursesMainActivity.class);
+        startActivity(intent);
+    }
+
+    public void onMockNearbyMessagesClicked(View view) {
+        Intent intent = new Intent(this, MockNearbyMessagesActivity.class);
         startActivity(intent);
     }
 
