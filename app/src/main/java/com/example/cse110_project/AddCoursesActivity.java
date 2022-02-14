@@ -47,6 +47,10 @@ public class AddCoursesActivity extends AppCompatActivity {
         } else if (enteredCourses.contains(enteredCourseNumber.getText().toString())) {
             Utilities.showAlert(this, Constants.WARNING, Constants.DUPLICATE_COURSE);
             return;
+        } else if (enteredCourses.contains(enteredCourseNumber.getText().toString())) {
+            Utilities.showAlert(this, WARNING, "Course has already been entered." +
+                    " Please enter another course or click the Back button.");
+            return;
         }
 
         displayEnteredPrevCourse(this.courseCounter);
@@ -66,7 +70,6 @@ public class AddCoursesActivity extends AppCompatActivity {
 
         editor.putStringSet(extras.getString(Constants.INIT_SUBJECT_KEY), set);
         editor.apply();
-
         intent.putExtra(Constants.SUBJECT_KEY, extras.getString(Constants.INIT_SUBJECT_KEY));
 
         startActivity(intent);
