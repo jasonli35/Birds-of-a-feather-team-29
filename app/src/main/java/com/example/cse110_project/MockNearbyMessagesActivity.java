@@ -2,6 +2,7 @@ package com.example.cse110_project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,13 +50,14 @@ public class MockNearbyMessagesActivity extends AppCompatActivity {
         MessageListener realListener = new MessageListener() {
             @Override
             public void onFound(@NonNull Message message) {
-                Log.d(TAG, "Found message: " + new String(message.getContent()));
-
+                //Log.d(TAG, "Found message: " + new String(message.getContent()));
                 String[] mockArr = new String(message.getContent()).split(Constants.COMMA);
 
                 AppDatabase db = AppDatabase.singleton(getApplicationContext());
+                db.clearAllTables();
                 db.DefaultStudentDao().delete();
                 db.DefaultCourseDao().delete();
+                //1
 
                 DefaultStudent[] defaultStudentList = {
                         new DefaultStudent("Steel"),
@@ -105,15 +107,14 @@ public class MockNearbyMessagesActivity extends AppCompatActivity {
                                 "Fall","CSE 167"),
                 };
 
-                DefaultCourseDao cd = db.DefaultCourseDao();
 
                 for (DefaultCourse defaultCourse : defaultCourseList) {
                     db.DefaultCourseDao().insert(defaultCourse);
                 }
 
-                for (int i = 8; i < mockArr.length - 4; i++) {
-                    // Log.d(TAG, mockArr[i] + " " + mockArr[i+1] + " " + mockArr[i+2] + mockArr[i+3]);
-                    cd.insert(new DefaultCourse(defStudentsList.get(3).getStudentId(),
+                for (int i = 2; i < mockArr.length; i=i+4) {
+                    Log.d(TAG, mockArr[i] + " " + mockArr[i+1] + " " + mockArr[i+2] + mockArr[i+3]);
+                    db.DefaultCourseDao().insert(new DefaultCourse(defStudentsList.get(3).getStudentId(),
                             mockArr[i], mockArr[i+1], mockArr[i+2] + " " + mockArr[i+3]));
                 }
 
@@ -131,7 +132,7 @@ public class MockNearbyMessagesActivity extends AppCompatActivity {
 
             @Override
             public void onLost(@NonNull Message message) {
-                Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
+                //Log.d(TAG, "Lost sight of message: " + new String(message.getContent()));
             }
         };
 

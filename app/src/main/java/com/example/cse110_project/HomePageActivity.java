@@ -137,6 +137,8 @@ public class HomePageActivity extends AppCompatActivity{
         studentsRecyclerView.setLayoutManager(studentsLayoutManager);
 
         studentsViewAdapter = new BoFStudentViewAdapter(students, db.BoFCourseDao());
+//        studentsViewAdapter.clear();
+//        studentsViewAdapter = new BoFStudentViewAdapter(students, db.BoFCourseDao());
         studentsRecyclerView.setAdapter(studentsViewAdapter);
     }
 }

@@ -15,6 +15,7 @@ import com.example.cse110_project.prevcourses.db.BoFStudent;
 import com.example.cse110_project.utilities.BoFStudentComparator;
 import com.example.cse110_project.utilities.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAdapter.ViewHolder> {
@@ -26,6 +27,12 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
         this.students = students;
         this.cd = cd;
         students.sort(new BoFStudentComparator(cd));
+    }
+
+    public void clear(){
+        int size = students.size();
+        this.students.clear();
+        notifyItemRangeRemoved(0, size);
     }
 
     @NonNull
