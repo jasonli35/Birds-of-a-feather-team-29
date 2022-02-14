@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cse110_project.prevcourses.db.BoFCourseDao;
 import com.example.cse110_project.prevcourses.db.BoFStudent;
 import com.example.cse110_project.utilities.BoFStudentComparator;
+import com.example.cse110_project.utilities.Constants;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class BoFStudentViewAdapter extends RecyclerView.Adapter<BoFStudentViewAd
         public void onClick(View view) {
             Context context = view.getContext();
             Intent intent = new Intent(context, StudentDetailActivity.class);
-            intent.putExtra("bof_student_id", this.student.getStudentId());
+            intent.putExtra(Constants.BOF_STUDENT_ID, this.student.getStudentId());
 
             context.startActivity(intent);
         }

@@ -1,3 +1,13 @@
+/*
+ * Source:
+ *
+ * How to permanently update data in Room database -
+ *  1) Title: Update some specific field of an entity in android Room
+ *     Link: https://stackoverflow.com/questions/45789325/update-some-specific-field-of-an-entity-in-android-room
+ *     Date: 2/9/22 - 2/11/22
+ *     Source used for...: Understanding how to update data in Room database
+ * */
+
 package com.example.cse110_project.prevcourses.db;
 
 import androidx.room.Dao;
@@ -27,10 +37,3 @@ public interface DefaultStudentDao {
     @Delete
     void delete(DefaultStudent defaultStudent);
 }
-
-/**
- * Source:
- *
- * How to permanently update data in Room database -
- * https://stackoverflow.com/questions/45789325/update-some-specific-field-of-an-entity-in-android-room
- * */

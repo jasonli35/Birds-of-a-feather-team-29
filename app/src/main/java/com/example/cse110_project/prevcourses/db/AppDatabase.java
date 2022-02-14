@@ -1,3 +1,13 @@
+/*
+ * Source(s):
+ *
+ * Adding databases/migration in regards to Room -
+ * 1) Title: Understanding migrations with Room
+ *    Link: https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
+ *    Date: 2/9/22 - 2/11/22
+ *    Source used for...: Understanding what to do when additional databases are added
+ * */
+
 package com.example.cse110_project.prevcourses.db;
 
 import android.content.Context;
@@ -36,11 +46,3 @@ public abstract class AppDatabase extends RoomDatabase {
         return singletonInstance;
     }
 }
-
-/**
- * Sources:
- *
- * Understanding what happens when Room database is changed -
- *
- * https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
- * */

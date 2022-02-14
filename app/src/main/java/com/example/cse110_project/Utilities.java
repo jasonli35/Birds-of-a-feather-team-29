@@ -3,6 +3,8 @@ package com.example.cse110_project;
 import android.app.Activity;
 import android.app.AlertDialog;
 
+import com.example.cse110_project.utilities.Constants;
+
 public class Utilities {
     public static void showAlert(Activity activity, String title, String message) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
@@ -10,7 +12,7 @@ public class Utilities {
         alertBuilder
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("Ok", (dialog, id) -> {
+                .setPositiveButton(Constants.OK, (dialog, id) -> {
                     dialog.cancel();
                 })
                 .setCancelable(true);

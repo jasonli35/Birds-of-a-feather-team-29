@@ -8,55 +8,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.cse110_project.utilities.Constants;
+
 public class EnterNameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_name);
-        setTitle("Birds of a Feather v0.0.1");
+        setTitle(Constants.APP_VERSION);
     }
 
     public void onConfirmButtonClicked(View view) {
         TextView nameTextView = findViewById(R.id.enter_name);
         String name = nameTextView.getText().toString();
-        if(!isValidName(name)){
 
+        if (!isValidName(name)) {
             runOnUiThread(() -> {
-                Utilities.showAlert(this, "Alert!", "Invalid name! Valid characters: A-Z, a-z, space character");
+                Utilities.showAlert(this, Constants.ALERT, Constants.INVALID_NAME);
             });
         }
         else {
-            SharedPreferences preferences = getSharedPreferences("USER_INFO", MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("userFirstName", name);
             Intent intent = new Intent(this, AddLinkActivity.class);
+            SharedPreferences pref = getSharedPreferences(Constants.USER_INFO, MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+
+            editor.putString(Constants.USER_FIRST_NAME, name);
+
             startActivity(intent);
         }
-
-        //Intent intent = new Intent(this, AddCoursesMainActivity.class);
-        //startActivity(intent);
     }
 
     public static boolean isValidName(String name){
-        if(name.isEmpty()){
-            return false;
-        }
-        for(int i = 0; i < name.length(); i++){
+        if (name.isEmpty()) { return false; }
+
+        for (int i = 0; i < name.length(); i++) {
             char curr = name.charAt(i);
-            if(curr < 32){
-                return false;
-            }
-            else if(curr > 32 && curr < 65){
-                return false;
-            }
-            else if(curr > 90 && curr < 97){
-                return false;
-            }
-            else if(curr > 122){
-                return false;
-            }
+            if (curr < 32) { return false; }
+            else if (curr > 32 && curr < 65) { return false; }
+            else if (curr > 90 && curr < 97) { return false; }
+            else if(curr > 122){ return false; }
         }
+
         return true;
     }
 }
