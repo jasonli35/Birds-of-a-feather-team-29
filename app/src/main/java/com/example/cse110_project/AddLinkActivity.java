@@ -22,11 +22,16 @@ public class AddLinkActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("USER_INFO", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         TextView urlView = findViewById(R.id.editTextTextPersonName);
-        Intent intent = new Intent(this, PreviewPhotoActivity.class);
+        String url = urlView.getText().toString();
+        if(!url.isEmpty()){
+            Intent intent = new Intent(this, PreviewPhotoActivity.class);
 
-        editor.putString("url", urlView.getText().toString());
-        editor.apply();
-        startActivity(intent);
+            editor.putString("url", url);
+            editor.apply();
+            startActivity(intent);
+
+        }
+
     }
 
     public void skipPhoto(View view) {
